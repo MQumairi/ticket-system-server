@@ -13,5 +13,11 @@ namespace API.Controllers
         {
             return 64;
         }
+
+        [HttpGet("{id}")]
+        public ActionResult<string> GetOne(int id)
+        {
+            return "The query para is " + id;
+        }
     }
 }
