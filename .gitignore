@@ -1,2 +1,5 @@
+# dependencies
+/obj/Debug
+
 # misc
 .DS_Store
