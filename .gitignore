@@ -1,6 +1,8 @@
 # dependencies
 /obj/Debug
 /bin/Debug
+**/obj/Debug
+API/bin/Debug
 
 # misc
 .DS_Store
