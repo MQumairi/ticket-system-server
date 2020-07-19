@@ -26,9 +26,9 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult<string> GetOne(int id)
+        public async Task<ActionResult<Ticket>> Details(int id)
         {
-            return "The query para is " + id;
+            return await mediator.Send(new Details.Query { Id = id });
         }
     }
 }
