@@ -1,3 +1,7 @@
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using API.Handlers.Tickets;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -6,12 +10,19 @@ namespace API.Controllers
     [Route("api/[controller]")]
     public class TicketsController : ControllerBase
     {
+        private readonly IMediator mediator;
+
+        public TicketsController(IMediator mediator)
+        {
+            this.mediator = mediator;
+
+        }
 
         // GET api/tickets
         [HttpGet]
-        public ActionResult<int> Get()
+        public async Task<ActionResult<List<Ticket>>> List()
         {
-            return 64;
+            return await mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]

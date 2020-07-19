@@ -1,3 +1,4 @@
+using API.Persistence;
 using Microsoft.EntityFrameworkCore;
 
 public class ApplicationDBContext : DbContext

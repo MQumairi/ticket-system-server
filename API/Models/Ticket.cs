@@ -22,7 +22,4 @@ public class Ticket {
     [Required]
     public string description {get; set;}
 
-    [Required]
-    public int[] commentIds {get; set;}
-
 }
