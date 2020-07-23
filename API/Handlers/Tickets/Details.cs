@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using API.Infrastructure.Errors;
 using MediatR;
 
 namespace API.Handlers.Tickets
@@ -23,6 +25,7 @@ namespace API.Handlers.Tickets
             public async Task<Ticket> Handle(Query request, CancellationToken cancellationToken)
             {
                 Ticket ticket = await context.tickets.FindAsync(request.ticketNumb);
+                if(ticket == null) throw new RestException (HttpStatusCode.NotFound, new{ticket = "Not found."});
                 
                 return ticket;
             }
