@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Handlers.Tickets;
@@ -26,9 +27,9 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ticket>> Details(int id)
+        public async Task<ActionResult<Ticket>> Details(Guid id)
         {
-            return await mediator.Send(new Details.Query { Id = id });
+            return await mediator.Send(new Details.Query { ticketNumb = id });
         }
 
         [HttpPost]
@@ -38,16 +39,16 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Edit.Command command, int id)
+        public async Task<ActionResult<Unit>> Edit(Edit.Command command, Guid id)
         {
-            command.Id = id;
+            command.ticketNumb = id;
             return await mediator.Send(command);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(int id)
+        public async Task<ActionResult<Unit>> Delete(Guid id)
         {
-            return await mediator.Send(new Delete.Command { Id = id });
+            return await mediator.Send(new Delete.Command { ticketNumb = id });
         }
     }
 }

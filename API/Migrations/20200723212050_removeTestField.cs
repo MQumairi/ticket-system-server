@@ -2,7 +2,7 @@
 
 namespace API.Migrations
 {
-    public partial class fixedConnectionString : Migration
+    public partial class removeTestField : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using API.Infrastructure.Errors;
 using MediatR;
 
 namespace API.Handlers.Tickets
@@ -9,7 +11,7 @@ namespace API.Handlers.Tickets
     {
         public class Command : IRequest
         {
-            public int Id { get; set; }
+            public Guid ticketNumb { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -22,8 +24,8 @@ namespace API.Handlers.Tickets
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                Ticket ticket = await context.tickets.FindAsync(request.Id);
-                if(ticket == null) throw new Exception("This ticket doesn't even exist!");
+                Ticket ticket = await context.tickets.FindAsync(request.ticketNumb);
+                if(ticket == null) throw new RestException (HttpStatusCode.NotFound, new{ticket = "Not found."});
 
                 context.tickets.Remove(ticket);
 

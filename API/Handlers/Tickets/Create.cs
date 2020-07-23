@@ -9,7 +9,7 @@ namespace API.Handlers.Tickets
     {
         public class Command : IRequest
         {
-            public int Id { get; set; }
+            // public Guid ticketNumb { get; set; }
 
             public int authorId { get; set; }
 
@@ -36,7 +36,7 @@ namespace API.Handlers.Tickets
             {
                 //Handler logic
                 Ticket ticket = new Ticket {
-                    Id = request.Id,
+                    // ticketNumb = request.ticketNumb,
                     authorId = request.authorId,
                     status = request.status,
                     product = request.product,
