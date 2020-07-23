@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20200707232811_fixedConnectionString")]
-    partial class fixedConnectionString
+    [Migration("20200723170802_usingGuid")]
+    partial class usingGuid
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,17 +22,12 @@ namespace API.Migrations
 
             modelBuilder.Entity("Ticket", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("ticketNumb")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("uuid");
 
                     b.Property<int>("authorId")
                         .HasColumnType("integer");
-
-                    b.Property<int[]>("commentIds")
-                        .IsRequired()
-                        .HasColumnType("integer[]");
 
                     b.Property<string>("date")
                         .IsRequired()
@@ -50,11 +45,14 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<string>("testfield")
+                        .HasColumnType("text");
+
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("ticketNumb");
 
                     b.ToTable("tickets");
                 });

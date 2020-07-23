@@ -1,10 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Migrations
 {
-    public partial class firstMigration : Migration
+    public partial class usingGuid : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,19 +11,18 @@ namespace API.Migrations
                 name: "tickets",
                 columns: table => new
                 {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ticketNumb = table.Column<Guid>(nullable: false),
                     authorId = table.Column<int>(nullable: false),
                     status = table.Column<string>(nullable: false),
                     product = table.Column<string>(nullable: false),
                     title = table.Column<string>(nullable: false),
                     date = table.Column<string>(nullable: false),
                     description = table.Column<string>(nullable: false),
-                    commentIds = table.Column<int[]>(nullable: false)
+                    testfield = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_tickets", x => x.Id);
+                    table.PrimaryKey("PK_tickets", x => x.ticketNumb);
                 });
         }
 

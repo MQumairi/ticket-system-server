@@ -9,7 +9,7 @@ namespace API.Handlers.Tickets
     {
         public class Command : IRequest
         {
-            public int Id { get; set; }
+            public Guid ticketNumb { get; set; }
 
             public string status { get; set; }
 
@@ -30,7 +30,7 @@ namespace API.Handlers.Tickets
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {               
-                Ticket ticket = await context.tickets.FindAsync(request.Id);
+                Ticket ticket = await context.tickets.FindAsync(request.ticketNumb);
                 if(ticket == null) throw new Exception("Ticket not found!");
 
                 ticket.status = request.status ?? ticket.status;

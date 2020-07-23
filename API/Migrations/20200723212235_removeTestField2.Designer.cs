@@ -9,8 +9,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    [Migration("20200707232546_firstMigration")]
-    partial class firstMigration
+    [Migration("20200723212235_removeTestField2")]
+    partial class removeTestField2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,17 +22,12 @@ namespace API.Migrations
 
             modelBuilder.Entity("Ticket", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("ticketNumb")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+                        .HasColumnType("uuid");
 
                     b.Property<int>("authorId")
                         .HasColumnType("integer");
-
-                    b.Property<int[]>("commentIds")
-                        .IsRequired()
-                        .HasColumnType("integer[]");
 
                     b.Property<string>("date")
                         .IsRequired()
@@ -54,7 +49,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("Id");
+                    b.HasKey("ticketNumb");
 
                     b.ToTable("tickets");
                 });

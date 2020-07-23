@@ -1,8 +1,10 @@
+using System;
 using System.ComponentModel.DataAnnotations;
 
 public class Ticket {
+
     [Key]
-    public int Id {get; set;}
+    public Guid ticketNumb {get; set;}
 
     [Required]
     public int authorId {get; set;}
