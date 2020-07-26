@@ -1,5 +1,6 @@
 using API.Handlers.Tickets;
 using API.Infrastructure.Middleware;
+using API.Infrastructure.Security;
 using API.Models;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -34,6 +35,7 @@ namespace API
             identityBuilder.AddSignInManager<SignInManager<User>>();
 
             services.AddAuthentication();
+            services.AddScoped<JWTGenerator>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
