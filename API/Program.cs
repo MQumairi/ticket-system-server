@@ -5,6 +5,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using API.Models;
 
 namespace API
 {
@@ -22,8 +24,9 @@ namespace API
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDBContext>();
+                    var userManager = services.GetRequiredService<UserManager<User>>();
                     context.Database.Migrate();
-                    Seed.seedTickets(context);
+                    Seed.seedTickets(context, userManager).Wait();
                 }
                 catch (Exception e)
                 {
