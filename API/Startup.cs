@@ -1,8 +1,10 @@
 using API.Handlers.Tickets;
 using API.Infrastructure.Middleware;
+using API.Models;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,6 +26,14 @@ namespace API
             services.AddControllers();
             services.AddDbContext<ApplicationDBContext>(option => option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMediatR(typeof(List.Handler).Assembly);
+
+            var builder = services.AddIdentityCore<User>();
+            var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
+
+            identityBuilder.AddEntityFrameworkStores<ApplicationDBContext>();
+            identityBuilder.AddSignInManager<SignInManager<User>>();
+
+            services.AddAuthentication();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

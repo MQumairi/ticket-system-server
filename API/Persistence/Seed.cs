@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
+using API.Models;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Persistence
 {
     public class Seed
     {
-        public static void seedTickets(ApplicationDBContext context)
+        public static async Task seedTickets(ApplicationDBContext context, UserManager<User> userManager)
         {
             if (!context.tickets.Any())
             {
@@ -51,6 +54,27 @@ namespace API.Persistence
 
                 context.tickets.AddRange(ticketsToAdd);
                 context.SaveChanges();
+            }
+
+
+            if (!userManager.Users.Any())
+            {
+                List<User> usersToAdd = new List<User>()
+                {
+                    new User{
+                        UserName = "Bob",
+                        Email = "Bob@email.com"
+                    },
+                    new User{
+                        UserName = "Billy",
+                        Email = "Billy@email.com"
+                    }
+                };
+
+                foreach (var user in usersToAdd)
+                {
+                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                }
             }
         }
     }

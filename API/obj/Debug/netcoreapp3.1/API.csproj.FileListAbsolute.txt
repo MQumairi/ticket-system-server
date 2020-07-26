@@ -41,3 +41,16 @@
 /Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.csproj.CopyComplete
 /Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/MediatR.dll
 /Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/MediatR.Extensions.Microsoft.DependencyInjection.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/API.StaticWebAssets.xml
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.Views.V3.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Embedded.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Identity.Core.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Identity.Stores.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.MvcApplicationPartsAssemblyInfo.cs
