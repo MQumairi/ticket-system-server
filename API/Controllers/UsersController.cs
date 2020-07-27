@@ -2,12 +2,14 @@ using System.Threading.Tasks;
 using API.Handlers.Users;
 using API.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [AllowAnonymous]
     public class UsersController : ControllerBase
     {
         private readonly IMediator mediator;
