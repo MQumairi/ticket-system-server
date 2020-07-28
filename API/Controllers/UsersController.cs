@@ -9,7 +9,6 @@ namespace API.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [AllowAnonymous]
     public class UsersController : ControllerBase
     {
         private readonly IMediator mediator;
@@ -20,15 +19,23 @@ namespace API.Controllers
 
         }
         [HttpPost("login")]
-        public async Task<ActionResult<CurrentUser>> Create(Login.Query query)
+        [AllowAnonymous]
+        public async Task<ActionResult<CurrentUser>> Login(Login.Query query)
         {
             return await mediator.Send(query);
         }
 
         [HttpPost("register")]
-        public async Task<ActionResult<CurrentUser>> Create(Register.Command command)
+        [AllowAnonymous]
+        public async Task<ActionResult<CurrentUser>> Register(Register.Command command)
         {
             return await mediator.Send(command);
+        }
+
+        [HttpGet]
+        public async Task<ActionResult<CurrentUser>> CurrentUser()
+        {
+            return await mediator.Send(new CurrentUserHandler.Query());
         }
     }
 }

@@ -43,7 +43,7 @@ namespace API.Handlers.Users
                 User userToRegister = new User
                 {
                     UserName = request.username,
-                    Email = request.email
+                    Email = request.email,
                 };
 
                 var registerUser = await userManager.CreateAsync(userToRegister, request.password);
