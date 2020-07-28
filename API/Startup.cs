@@ -1,14 +1,19 @@
+using System.Text;
 using API.Handlers.Tickets;
 using API.Infrastructure.Middleware;
 using API.Infrastructure.Security;
 using API.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace API
 {
@@ -24,7 +29,11 @@ namespace API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers(opt =>
+            {
+                var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
+                opt.Filters.Add(new AuthorizeFilter(policy));
+            });
             services.AddDbContext<ApplicationDBContext>(option => option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMediatR(typeof(List.Handler).Assembly);
 
@@ -36,6 +45,21 @@ namespace API
 
             services.AddAuthentication();
             services.AddScoped<JWTGenerator>();
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = key,
+                    ValidateAudience = false,
+                    ValidateIssuer = false
+                };
+            });
+
+            services.AddScoped<UserAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -50,7 +74,9 @@ namespace API
             // app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors("CorsPolicy");
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
