@@ -1,27 +1,25 @@
-using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
-public class Ticket {
+namespace API.Models
+{
+    public class Ticket : Post
+    {
+        [Required]
+        public string title { get; set; }
 
-    [Key]
-    public Guid ticketNumb {get; set;}
+        //Relationship with Product Entity
+        public Product product { get; set; }
 
-    [Required]
-    public int authorId {get; set;}
+        [Required]
+        [ForeignKey("product")]
+        public int product_id { get; set; }
 
-    [Required]
-    public string status {get; set;}
+        //Relationship with Status entity
+        public Status status { get; set; }
 
-    [Required]
-    public string product {get; set;}
-
-    [Required]
-    public string title {get; set;}
-
-    [Required]
-    public string date {get; set;}
-
-    [Required]
-    public string description {get; set;}
-
+        [Required]
+        [ForeignKey("status")]
+        public int status_id { get; set; }
+    }
 }
