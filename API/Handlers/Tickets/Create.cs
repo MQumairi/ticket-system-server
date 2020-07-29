@@ -38,7 +38,7 @@ namespace API.Handlers.Tickets
                 //Handler logic
                 Ticket ticket = new Ticket
                 {
-                    date_time = DateTime.Parse(request.description, System.Globalization.CultureInfo.InvariantCulture),
+                    date_time = DateTime.Parse(request.date_time, System.Globalization.CultureInfo.InvariantCulture),
                     description = request.description,
                     author_id = request.author_id,
                     title = request.title,
