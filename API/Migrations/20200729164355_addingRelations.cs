@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Migrations
 {
-    public partial class AddingIdentity : Migration
+    public partial class addingRelations : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -40,11 +40,41 @@ namespace API.Migrations
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
-                    AccessFailedCount = table.Column<int>(nullable: false)
+                    AccessFailedCount = table.Column<int>(nullable: false),
+                    avatar = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "products",
+                columns: table => new
+                {
+                    product_id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    product_name = table.Column<string>(nullable: false),
+                    version = table.Column<string>(nullable: true),
+                    product_image = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_products", x => x.product_id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "status",
+                columns: table => new
+                {
+                    status_id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    status_text = table.Column<string>(nullable: false),
+                    status_color = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_status", x => x.status_id);
                 });
 
             migrationBuilder.CreateTable(
@@ -153,6 +183,50 @@ namespace API.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "posts",
+                columns: table => new
+                {
+                    post_id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    date_time = table.Column<DateTime>(nullable: false),
+                    description = table.Column<string>(nullable: false),
+                    author_id = table.Column<string>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    parent_post_id = table.Column<int>(nullable: true),
+                    title = table.Column<string>(nullable: true),
+                    product_id = table.Column<int>(nullable: true),
+                    status_id = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_posts", x => x.post_id);
+                    table.ForeignKey(
+                        name: "FK_posts_posts_parent_post_id",
+                        column: x => x.parent_post_id,
+                        principalTable: "posts",
+                        principalColumn: "post_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_posts_AspNetUsers_author_id",
+                        column: x => x.author_id,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_posts_products_product_id",
+                        column: x => x.product_id,
+                        principalTable: "products",
+                        principalColumn: "product_id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_posts_status_status_id",
+                        column: x => x.status_id,
+                        principalTable: "status",
+                        principalColumn: "status_id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -189,6 +263,26 @@ namespace API.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_posts_parent_post_id",
+                table: "posts",
+                column: "parent_post_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_posts_author_id",
+                table: "posts",
+                column: "author_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_posts_product_id",
+                table: "posts",
+                column: "product_id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_posts_status_id",
+                table: "posts",
+                column: "status_id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -209,10 +303,19 @@ namespace API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "posts");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "products");
+
+            migrationBuilder.DropTable(
+                name: "status");
         }
     }
 }

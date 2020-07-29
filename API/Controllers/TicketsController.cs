@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Handlers.Tickets;
+using API.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -29,9 +30,9 @@ namespace API.Controllers
 
         [HttpGet("{id}")]
         [Authorize]
-        public async Task<ActionResult<Ticket>> Details(Guid id)
+        public async Task<ActionResult<Ticket>> Details(int id)
         {
-            return await mediator.Send(new Details.Query { ticketNumb = id });
+            return await mediator.Send(new Details.Query { post_id = id });
         }
 
         [HttpPost]
@@ -41,16 +42,16 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Edit.Command command, Guid id)
+        public async Task<ActionResult<Unit>> Edit(Edit.Command command, int id)
         {
-            command.ticketNumb = id;
+            command.post_id = id;
             return await mediator.Send(command);
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Unit>> Delete(Guid id)
+        public async Task<ActionResult<Unit>> Delete(int id)
         {
-            return await mediator.Send(new Delete.Command { ticketNumb = id });
+            return await mediator.Send(new Delete.Command { post_id = id });
         }
     }
 }
