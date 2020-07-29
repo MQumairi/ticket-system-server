@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "MGN+WgZHtgaKhmhIwy0XCzCMhaO5o58PM4uR+k112H0iXmX/W4+qbv6Hb18Gx8uUy3xgwHLTELzp+DZL3N22bQ==",
+  "dgSpecHash": "pcZrhuFTzgaN62fHSOoy9EJ6T/ddIYOMyAvx4BEmxTpTiKCAteXZV9PT+fIIA39bey9RjmCIElzNnMgtwJiPfA==",
   "success": true,
   "projectFilePath": "/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/API.csproj",
   "expectedPackageFiles": [
@@ -11,6 +11,8 @@
     "/Users/mqumairi/.nuget/packages/microsoft.aspnetcore.cryptography.keyderivation/3.1.5/microsoft.aspnetcore.cryptography.keyderivation.3.1.5.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/microsoft.aspnetcore.identity.entityframeworkcore/3.1.5/microsoft.aspnetcore.identity.entityframeworkcore.3.1.5.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/microsoft.aspnetcore.identity.ui/3.1.5/microsoft.aspnetcore.identity.ui.3.1.5.nupkg.sha512",
+    "/Users/mqumairi/.nuget/packages/microsoft.aspnetcore.jsonpatch/3.1.5/microsoft.aspnetcore.jsonpatch.3.1.5.nupkg.sha512",
+    "/Users/mqumairi/.nuget/packages/microsoft.aspnetcore.mvc.newtonsoftjson/3.1.5/microsoft.aspnetcore.mvc.newtonsoftjson.3.1.5.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/microsoft.bcl.asyncinterfaces/1.1.1/microsoft.bcl.asyncinterfaces.1.1.1.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/microsoft.bcl.hashcode/1.1.0/microsoft.bcl.hashcode.1.1.0.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/microsoft.csharp/4.7.0/microsoft.csharp.4.7.0.nupkg.sha512",
@@ -41,6 +43,7 @@
     "/Users/mqumairi/.nuget/packages/microsoft.identitymodel.protocols.openidconnect/5.5.0/microsoft.identitymodel.protocols.openidconnect.5.5.0.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/microsoft.identitymodel.tokens/6.7.1/microsoft.identitymodel.tokens.6.7.1.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/newtonsoft.json/12.0.2/newtonsoft.json.12.0.2.nupkg.sha512",
+    "/Users/mqumairi/.nuget/packages/newtonsoft.json.bson/1.0.2/newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/npgsql/4.1.3.1/npgsql.4.1.3.1.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/npgsql.entityframeworkcore.postgresql/3.1.4/npgsql.entityframeworkcore.postgresql.3.1.4.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/system.collections.immutable/1.7.1/system.collections.immutable.1.7.1.nupkg.sha512",

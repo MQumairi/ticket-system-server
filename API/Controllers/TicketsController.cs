@@ -29,7 +29,6 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        [Authorize]
         public async Task<ActionResult<Ticket>> Details(int id)
         {
             return await mediator.Send(new Details.Query { post_id = id });
