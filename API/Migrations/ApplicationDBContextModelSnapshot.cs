@@ -18,6 +18,79 @@ namespace API.Migrations
                 .HasAnnotation("ProductVersion", "3.1.5")
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
+            modelBuilder.Entity("API.Models.Post", b =>
+                {
+                    b.Property<int>("post_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("author_id")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("date_time")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("post_id");
+
+                    b.HasIndex("author_id");
+
+                    b.ToTable("posts");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Post");
+                });
+
+            modelBuilder.Entity("API.Models.Product", b =>
+                {
+                    b.Property<int>("product_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("product_image")
+                        .HasColumnType("text");
+
+                    b.Property<string>("product_name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("version")
+                        .HasColumnType("text");
+
+                    b.HasKey("product_id");
+
+                    b.ToTable("products");
+                });
+
+            modelBuilder.Entity("API.Models.Status", b =>
+                {
+                    b.Property<int>("status_id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
+
+                    b.Property<string>("status_color")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("status_text")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("status_id");
+
+                    b.ToTable("status");
+                });
+
             modelBuilder.Entity("API.Models.User", b =>
                 {
                     b.Property<string>("Id")
@@ -69,6 +142,9 @@ namespace API.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
+
+                    b.Property<string>("avatar")
+                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
@@ -212,38 +288,46 @@ namespace API.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("Ticket", b =>
+            modelBuilder.Entity("API.Models.Comment", b =>
                 {
-                    b.Property<Guid>("ticketNumb")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uuid");
+                    b.HasBaseType("API.Models.Post");
 
-                    b.Property<int>("authorId")
+                    b.Property<int>("parent_post_id")
                         .HasColumnType("integer");
 
-                    b.Property<string>("date")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.HasIndex("parent_post_id");
 
-                    b.Property<string>("description")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.HasDiscriminator().HasValue("Comment");
+                });
 
-                    b.Property<string>("product")
-                        .IsRequired()
-                        .HasColumnType("text");
+            modelBuilder.Entity("API.Models.Ticket", b =>
+                {
+                    b.HasBaseType("API.Models.Post");
 
-                    b.Property<string>("status")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("product_id")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("status_id")
+                        .HasColumnType("integer");
 
                     b.Property<string>("title")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.HasKey("ticketNumb");
+                    b.HasIndex("product_id");
 
-                    b.ToTable("tickets");
+                    b.HasIndex("status_id");
+
+                    b.HasDiscriminator().HasValue("Ticket");
+                });
+
+            modelBuilder.Entity("API.Models.Post", b =>
+                {
+                    b.HasOne("API.Models.User", "user")
+                        .WithMany("posts")
+                        .HasForeignKey("author_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -293,6 +377,30 @@ namespace API.Migrations
                     b.HasOne("API.Models.User", null)
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("API.Models.Comment", b =>
+                {
+                    b.HasOne("API.Models.Post", "post")
+                        .WithMany("comments")
+                        .HasForeignKey("parent_post_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("API.Models.Ticket", b =>
+                {
+                    b.HasOne("API.Models.Product", "product")
+                        .WithMany("tickets")
+                        .HasForeignKey("product_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("API.Models.Status", "status")
+                        .WithMany("tickets")
+                        .HasForeignKey("status_id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

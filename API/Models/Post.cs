@@ -26,6 +26,6 @@ namespace API.Models
 
         [Required]
         [ForeignKey("user")]
-        public int author_id { get; set; }
+        public string author_id { get; set; }
     }
 }

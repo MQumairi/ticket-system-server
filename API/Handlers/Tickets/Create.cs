@@ -16,7 +16,7 @@ namespace API.Handlers.Tickets
 
             public string description { get; set; }
 
-            public int author_id { get; set; }
+            public string author_id { get; set; }
 
             public string title { get; set; }
 

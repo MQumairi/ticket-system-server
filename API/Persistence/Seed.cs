@@ -56,7 +56,7 @@ namespace API.Persistence
             //Seeding Status
             if (!context.status.Any())
             {
-                List<Status> status = new List<Status>()
+                List<Status> statusToAdd = new List<Status>()
                 {
                     new Status {
                         status_text = "Urgent",
@@ -75,15 +75,18 @@ namespace API.Persistence
                         status_color = "green"
                     }
                 };
+
+                context.status.AddRange(statusToAdd);
+                context.SaveChanges();
             }
-            
+
             //Seeding Tickets
             if (!context.tickets.Any())
             {
                 List<Ticket> ticketsToAdd = new List<Ticket>()
                 {
                     new Ticket {
-                        author_id = 1,
+                        author_id = "93ab484e-645b-4489-80cc-e8e679b73fd9",
                         status_id = 1,
                         product_id = 1,
                         title = "Crashes after update",
@@ -92,7 +95,7 @@ namespace API.Persistence
                         },
 
                     new Ticket {
-                        author_id = 1,
+                        author_id = "93ab484e-645b-4489-80cc-e8e679b73fd9",
                         status_id = 1,
                         product_id = 1,
                         title = "Images not loading",
@@ -101,7 +104,7 @@ namespace API.Persistence
                         },
 
                     new Ticket {
-                        author_id = 1,
+                        author_id = "93ab484e-645b-4489-80cc-e8e679b73fd9",
                         status_id = 1,
                         product_id = 1,
                         title = "Long loading time on startup",
@@ -120,15 +123,15 @@ namespace API.Persistence
                 List<Comment> commentsToAdd = new List<Comment>()
                 {
                     new Comment {
-                        parent_post_id = 1,
-                        author_id = 2,
+                        parent_post_id = 4,
+                        author_id = "ef8ef098-6699-477a-99a8-936c9c3a4cca",
                         date_time = DateTime.Now,
                         description = "Working on it now"
                     },
 
                     new Comment {
-                        parent_post_id = 2,
-                        author_id = 2,
+                        parent_post_id = 5,
+                        author_id = "ef8ef098-6699-477a-99a8-936c9c3a4cca",
                         date_time = DateTime.Now,
                         description = "You're having a networking problem"
                     }
