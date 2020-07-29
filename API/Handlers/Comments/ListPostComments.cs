@@ -13,7 +13,8 @@ namespace API.Handlers.Comments
 {
     public class ListPostComments
     {
-        public class Query : IRequest<List<Comment>> { 
+        public class Query : IRequest<List<Comment>>
+        {
             public int parent_id { get; set; }
         }
 
@@ -27,19 +28,24 @@ namespace API.Handlers.Comments
 
             public async Task<List<Comment>> Handle(Query request, CancellationToken cancellationToken)
             {
-                //Find the post of that id
-                Post post = await context.posts.FindAsync(request.parent_id);
+                //Find the comments whose parent id is equal to that in the request
+                var comments = await context.comments.Where(c => c.parent_post_id == request.parent_id).ToListAsync();
 
-                if(post == null)
-                    throw new RestException (HttpStatusCode.NotFound, new {post = "Not found"});
-
-                //Find the comments beloning to that post
-                var comments = await context.comments.Where(c => c.parent_post_id == post.post_id).ToListAsync();
-                
-                if (comments.Count() == 0) {
-                    return null;
+                //If non are found, either the parent post being searched for comments exists, or it doesn't.
+                if (comments.Count == 0)
+                {
+                    Post post = await context.posts.FindAsync(request.parent_id);
+                    //If the parent doesn't exist in the first place, return a 404
+                    if (post == null)
+                    {
+                        throw new RestException(HttpStatusCode.NotFound, new { post = "Not found" });
+                    }
+                    //Else, return an empty list
+                    else
+                    {
+                        return null;
+                    }
                 }
-
                 //Return the above comments
                 return comments;
             }
