@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,45 +11,37 @@ namespace API.Persistence
     {
         public static async Task seedTickets(ApplicationDBContext context, UserManager<User> userManager)
         {
+            //Seeding Tickets
             if (!context.tickets.Any())
             {
 
                 List<Ticket> ticketsToAdd = new List<Ticket>()
                 {
             new Ticket {
-                authorId = 1,
-                status = "Urgent",
-                product = "Product 1",
-                title = "Tries to update after every crash",
-                date = "2020-01-04",
-                description = "The app installation crashes after updating to version 10.15.5.",
-            },
-
-            new Ticket {
-                authorId = 2,
-                status = "Low",
-                product = "Product 1",
-                title = "Not connecting to database",
-                date = "2020-01-04",
-                description = "Displays a 502 error w",
-            },
-
-            new Ticket {
-                authorId = 2,
-                status = "Low",
-                product = "Product 2",
+                author_id = 1,
+                status_id = 1,
+                product_id = 1,
                 title = "Crashes after update",
-                date = "2020-01-04",
+                date_time = DateTime.Now,
                 description = "The app installation crashes after updating to version 10.15.5.",
             },
 
             new Ticket {
-                authorId = 1,
-                status = "Done",
-                product = "Product 4",
-                title = "Crashes after update",
-                date = "2020-01-04",
-                description = "The app installation crashes after updating to version 10.15.5.",
+                author_id = 1,
+                status_id = 1,
+                product_id = 1,
+                title = "Images not loading",
+                date_time = DateTime.Now,
+                description = "All images show up as question marks",
+            },
+
+            new Ticket {
+                author_id = 1,
+                status_id = 1,
+                product_id = 1,
+                title = "Long loading time on startup",
+                date_time = DateTime.Now,
+                description = "Takes over 2 minutes to run the app after updating to 10.15.5!",
             }
                 };
 
@@ -56,7 +49,7 @@ namespace API.Persistence
                 context.SaveChanges();
             }
 
-
+            //Seeding Users
             if (!userManager.Users.Any())
             {
                 List<User> usersToAdd = new List<User>()

@@ -3,6 +3,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Infrastructure.Errors;
+using API.Models;
 using MediatR;
 
 namespace API.Handlers.Tickets
@@ -11,7 +12,7 @@ namespace API.Handlers.Tickets
     {
         public class Query : IRequest<Ticket>
         {
-            public Guid ticketNumb { get; set; }
+            public int post_id { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, Ticket>
@@ -24,7 +25,7 @@ namespace API.Handlers.Tickets
 
             public async Task<Ticket> Handle(Query request, CancellationToken cancellationToken)
             {
-                Ticket ticket = await context.tickets.FindAsync(request.ticketNumb);
+                Ticket ticket = await context.tickets.FindAsync(request.post_id);
                 if(ticket == null) throw new RestException (HttpStatusCode.NotFound, new{ticket = "Not found."});
                 
                 return ticket;

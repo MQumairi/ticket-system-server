@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +11,7 @@ namespace API.Models
         public int post_id { get; set; }
 
         [Required]
-        public string date_time { get; set; }
+        public DateTime date_time { get; set; }
 
         [Required]
         public string description { get; set; }
