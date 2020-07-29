@@ -6,17 +6,16 @@ using API.Infrastructure.Errors;
 using API.Models;
 using MediatR;
 
-namespace API.Handlers.Products
+namespace API.Handlers.Statuses
 {
     public class Edit
     {
         public class Command : IRequest
         {
             //Properties
-            public int product_id { get; set; }
-            public string product_name { get; set; }
-            public string version { get; set; }
-            public string product_image { get; set; }
+            public int status_id { get; set; }
+            public string status_text { get; set; }
+            public string status_color { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -29,14 +28,14 @@ namespace API.Handlers.Products
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                Product product = await context.products.FindAsync(request.product_id);
+                Status status = await context.status.FindAsync(request.status_id);
 
-                if(product == null) throw new RestException(HttpStatusCode.NotFound, new {product = "Not found"});
+                if(status == null) throw new RestException(HttpStatusCode.NotFound, new {status = "Not found"});
 
-                product.product_name = request.product_name ?? product.product_name;
-                product.version = request.version ?? product.version;
-                product.product_image = request.product_image ?? product.product_image;
-
+                status.status_text = request.status_text ?? status.status_text;
+                status.status_color = request.status_color ?? status.status_color;
+                
+                //Handler logic
                 var success = await context.SaveChangesAsync() > 0;
                 if (success) return Unit.Value;
 

@@ -1,22 +1,18 @@
 using System;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
-using API.Infrastructure.Errors;
 using API.Models;
 using MediatR;
 
-namespace API.Handlers.Products
+namespace API.Handlers.Statuses
 {
-    public class Edit
+    public class Create
     {
         public class Command : IRequest
         {
             //Properties
-            public int product_id { get; set; }
-            public string product_name { get; set; }
-            public string version { get; set; }
-            public string product_image { get; set; }
+            public string status_text { get; set; }
+            public string status_color { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -29,20 +25,20 @@ namespace API.Handlers.Products
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                Product product = await context.products.FindAsync(request.product_id);
+                Status status = new Status
+                {
+                    status_text = request.status_text,
+                    status_color = request.status_color
+                };
 
-                if(product == null) throw new RestException(HttpStatusCode.NotFound, new {product = "Not found"});
+                context.status.Add(status);
 
-                product.product_name = request.product_name ?? product.product_name;
-                product.version = request.version ?? product.version;
-                product.product_image = request.product_image ?? product.product_image;
-
+                //Handler logic
                 var success = await context.SaveChangesAsync() > 0;
                 if (success) return Unit.Value;
 
                 throw new Exception("Problem saving data");
             }
-
         }
     }
 }
