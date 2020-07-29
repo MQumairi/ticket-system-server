@@ -1,37 +1,40 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using API.Handlers.Tickets;
+using API.Handlers.Comments;
 using API.Models;
 using MediatR;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+
     [ApiController]
     [Route("api/[controller]")]
-    public class TicketsController : ControllerBase
+    public class CommentsController : ControllerBase
     {
         private readonly IMediator mediator;
 
-        public TicketsController(IMediator mediator)
+        public CommentsController(IMediator mediator)
         {
             this.mediator = mediator;
-
         }
 
-        // GET api/tickets
         [HttpGet]
-        public async Task<ActionResult<List<Ticket>>> List()
+        public async Task<ActionResult<List<Comment>>> List()
         {
             return await mediator.Send(new List.Query());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Ticket>> Details(int id)
+        [HttpGet("{id}/comments")]
+        public async Task<ActionResult<List<Comment>>> ListPostComments(int id)
         {
-            return await mediator.Send(new Details.Query { post_id = id });
+            return await mediator.Send(new Handlers.Comments.ListPostComments.Query { parent_id = id });
+        }
+
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Comment>> Details(int id)
+        {
+            return await mediator.Send(new Details.Query { id = id });
         }
 
         [HttpPost]
@@ -41,7 +44,7 @@ namespace API.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Edit.Command command, int id)
+        public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
         {
             command.post_id = id;
             return await mediator.Send(command);
@@ -53,10 +56,6 @@ namespace API.Controllers
             return await mediator.Send(new Delete.Command { post_id = id });
         }
 
-        [HttpGet("{id}/comments")]
-        public async Task<ActionResult<List<Comment>>> ListPostComments(int id)
-        {
-            return await mediator.Send(new Handlers.Comments.ListPostComments.Query {parent_id = id});
-        }
+
     }
 }
