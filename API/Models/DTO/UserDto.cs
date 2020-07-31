@@ -1,11 +1,10 @@
-namespace API.Models
+namespace API.Models.DTO
 {
-    public class CurrentUser
+    public class UserDto
     {
-        public string user_id { get; set; }
+        public string id { get; set; }
         public string username { get; set; }
         public string email { get; set; }
         public string avatar { get; set; }
-        public string token { get; set; }
     }
 }

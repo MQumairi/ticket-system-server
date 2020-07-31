@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
+using API.Models.DTO;
+using AutoMapper;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,21 +11,30 @@ namespace API.Handlers.Products
 {
     public class List
     {
-        public class Query : IRequest<List<Product>> { }
+        public class Query : IRequest<List<ProductDto>> { }
 
-        public class Handler : IRequestHandler<Query, List<Product>>
+        public class Handler : IRequestHandler<Query, List<ProductDto>>
         {
             private readonly ApplicationDBContext context;
-            public Handler(ApplicationDBContext context)
+            private readonly IMapper mapper;
+            public Handler(ApplicationDBContext context, IMapper mapper)
             {
+                this.mapper = mapper;
                 this.context = context;
             }
 
-            public async Task<List<Product>> Handle(Query request, CancellationToken cancellationToken)
+            public async Task<List<ProductDto>> Handle(Query request, CancellationToken cancellationToken)
             {
                 List<Product> products = await context.products.ToListAsync();
 
-                return products;
+                List<ProductDto> productDtos = new List<ProductDto>();
+
+                foreach(Product product in products) {
+                    ProductDto productDto = mapper.Map<Product, ProductDto>(product);
+                    productDtos.Add(productDto);
+                }
+
+                return productDtos;
             }
         }
     }

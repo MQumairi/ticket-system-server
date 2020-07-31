@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Handlers.Tickets;
 using API.Models;
+using API.Models.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -23,13 +24,14 @@ namespace API.Controllers
 
         // GET api/tickets
         [HttpGet]
-        public async Task<ActionResult<List<Ticket>>> List()
+        [AllowAnonymous]
+        public async Task<ActionResult<List<TicketDto>>> List()
         {
             return await mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Ticket>> Details(int id)
+        public async Task<ActionResult<TicketDto>> Details(int id)
         {
             return await mediator.Send(new Details.Query { post_id = id });
         }

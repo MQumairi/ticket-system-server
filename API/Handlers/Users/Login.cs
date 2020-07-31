@@ -44,7 +44,10 @@ namespace API.Handlers.Users
                     //TODO: Generate a JWT
                     CurrentUser currentUser = new CurrentUser
                     {
+                        user_id = user.Id,
+                        username = user.UserName,
                         email = request.email,
+                        avatar = user.avatar,
                         token = jWTGenerator.CreateToken(user)
                     };
 
