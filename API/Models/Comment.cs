@@ -5,11 +5,11 @@ namespace API.Models
 {
     public class Comment : Post
     {
-        //Relationship with Post
-        public Post post { get; set; }
+        //Relationship with Ticket
+        public Ticket ticket { get; set; }
 
         [Required]
-        [ForeignKey("post")]
+        [ForeignKey("ticket")]
         public int parent_post_id { get; set; }
     }
 }

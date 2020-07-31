@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Handlers.Products;
 using API.Models;
+using API.Models.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,13 +19,13 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> List()
+        public async Task<ActionResult<List<ProductDto>>> List()
         {
             return await mediator.Send(new List.Query());
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> Details(int id)
+        public async Task<ActionResult<ProductDto>> Details(int id)
         {
             return await mediator.Send(new Details.Query { product_id = id });
         }
