@@ -28,12 +28,11 @@ namespace API.Handlers.Products
                 List<Product> products = await context.products.ToListAsync();
 
                 List<ProductDto> productDtos = new List<ProductDto>();
-                
+
                 foreach(Product product in products) {
                     ProductDto productDto = mapper.Map<Product, ProductDto>(product);
                     productDtos.Add(productDto);
                 }
-
 
                 return productDtos;
             }
