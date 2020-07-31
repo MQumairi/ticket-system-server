@@ -86,7 +86,7 @@ namespace API.Persistence
                 List<Ticket> ticketsToAdd = new List<Ticket>()
                 {
                     new Ticket {
-                        author_id = "93ab484e-645b-4489-80cc-e8e679b73fd9",
+                        author_id = "2980dd9d-26ad-46b3-baa9-01276ff20162",
                         status_id = 1,
                         product_id = 1,
                         title = "Crashes after update",
@@ -95,7 +95,7 @@ namespace API.Persistence
                         },
 
                     new Ticket {
-                        author_id = "93ab484e-645b-4489-80cc-e8e679b73fd9",
+                        author_id = "2980dd9d-26ad-46b3-baa9-01276ff20162",
                         status_id = 1,
                         product_id = 1,
                         title = "Images not loading",
@@ -104,7 +104,7 @@ namespace API.Persistence
                         },
 
                     new Ticket {
-                        author_id = "93ab484e-645b-4489-80cc-e8e679b73fd9",
+                        author_id = "2980dd9d-26ad-46b3-baa9-01276ff20162",
                         status_id = 1,
                         product_id = 1,
                         title = "Long loading time on startup",
@@ -124,14 +124,14 @@ namespace API.Persistence
                 {
                     new Comment {
                         parent_post_id = 4,
-                        author_id = "ef8ef098-6699-477a-99a8-936c9c3a4cca",
+                        author_id = "932cbaed-0393-4e27-9d19-7d19711e1323",
                         date_time = DateTime.Now,
                         description = "Working on it now"
                     },
 
                     new Comment {
-                        parent_post_id = 5,
-                        author_id = "ef8ef098-6699-477a-99a8-936c9c3a4cca",
+                        parent_post_id = 4,
+                        author_id = "932cbaed-0393-4e27-9d19-7d19711e1323",
                         date_time = DateTime.Now,
                         description = "You're having a networking problem"
                     }

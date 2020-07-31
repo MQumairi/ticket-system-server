@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,5 +22,8 @@ namespace API.Models
         [Required]
         [ForeignKey("status")]
         public int status_id { get; set; }
+
+        //Relationship with Comment entity
+        public List<Comment> comments { get; set; }
     }
 }
