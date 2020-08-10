@@ -53,7 +53,10 @@ namespace API.Handlers.Users
                     // return Unit.Value;
                     return new CurrentUser
                     {
+                        user_id = userToRegister.Id,
+                        username = request.username,
                         email = request.email,
+                        avatar = userToRegister.avatar,
                         token = jWTGenerator.CreateToken(userToRegister)
                     };
                 }

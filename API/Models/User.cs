@@ -7,6 +7,10 @@ namespace API.Models
     {
         public string avatar { get; set; }
 
+        // public string first_name {get; set;}
+
+        // public string surname {get; set;}
+
         //Relationship with Post entity
         public List<Post> posts { get; set; }
     }
