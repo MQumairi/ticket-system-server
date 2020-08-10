@@ -24,7 +24,6 @@ namespace API.Controllers
 
         // GET api/tickets
         [HttpGet]
-        [AllowAnonymous]
         public async Task<ActionResult<List<TicketDto>>> List()
         {
             return await mediator.Send(new List.Query());

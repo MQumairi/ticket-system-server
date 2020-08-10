@@ -31,6 +31,9 @@ namespace API.Handlers.Users
 
                 return new CurrentUser
                 {
+                    user_id = user.Id,
+                    username = user.UserName,
+                    avatar = user.avatar,
                     email = user.Email,
                     token = jWTGenerator.CreateToken(user)
                 };
