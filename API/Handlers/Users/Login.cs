@@ -24,8 +24,10 @@ namespace API.Handlers.Users
             private readonly UserManager<User> userManager;
             private readonly SignInManager<User> signInManager;
             private readonly JWTGenerator jWTGenerator;
-            public Handler(UserManager<User> userManager, SignInManager<User> signInManager, JWTGenerator jWTGenerator)
+            private readonly ApplicationDBContext context;
+            public Handler(ApplicationDBContext context, UserManager<User> userManager, SignInManager<User> signInManager, JWTGenerator jWTGenerator)
             {
+                this.context = context;
                 this.jWTGenerator = jWTGenerator;
                 this.userManager = userManager;
                 this.signInManager = signInManager;
@@ -39,6 +41,8 @@ namespace API.Handlers.Users
 
                 var result = await signInManager.CheckPasswordSignInAsync(user, request.password, false);
 
+                var fetched_avatar = await context.photos.FindAsync(user.avatar_id);
+
                 if (result.Succeeded)
                 {
                     //TODO: Generate a JWT
@@ -47,7 +51,9 @@ namespace API.Handlers.Users
                         user_id = user.Id,
                         username = user.UserName,
                         email = request.email,
-                        // avatar = user.avatar,
+                        first_name = user.first_name,
+                        surname = user.surname,
+                        avatar_url = fetched_avatar.url,
                         token = jWTGenerator.CreateToken(user)
                     };
 

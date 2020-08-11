@@ -29,11 +29,13 @@ namespace API.Handlers.Users
             {
                 var user = await userManager.FindByEmailAsync(userAccessor.getCurrentUsername());
 
+                var fetched_avatar = await context.photos.FindAsync(user.avatar_id);
+
                 return new CurrentUser
                 {
                     user_id = user.Id,
                     username = user.UserName,
-                    // avatar = user.avatar,
+                    avatar_url = fetched_avatar.url,
                     email = user.Email,
                     token = jWTGenerator.CreateToken(user)
                 };

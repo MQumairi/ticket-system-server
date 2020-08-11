@@ -1,5 +1,3 @@
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace API.Models
 {
     public class CurrentUser
@@ -11,10 +9,6 @@ namespace API.Models
         public string surname {get; set;}
         public string token { get; set; }
 
-        //Relationship with ProfilePic entity
-        public Avatar avatar { get; set; }
-
-        [ForeignKey("avatar")]
-        public string avatar_url { get; set; }
+        public string avatar_url {get; set;}
     }
 }

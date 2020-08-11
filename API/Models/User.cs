@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
 
@@ -6,8 +7,10 @@ namespace API.Models
 {
     public class User : IdentityUser
     {
+        [Required]
         public string first_name {get; set;}
 
+        [Required]
         public string surname {get; set;}
 
         //Relationship with Post entity
@@ -17,6 +20,6 @@ namespace API.Models
         public Avatar avatar { get; set; }
 
         [ForeignKey("avatar")]
-        public string avatar_url { get; set; }
+        public string avatar_id { get; set; }
     }
 }

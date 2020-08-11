@@ -1,3 +1,4 @@
+using System;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +38,10 @@ namespace API.Infrastructure.Images
 
                     uploadResult = this.cloudinary.Upload(uploadParams);
                 }
+            }
+
+            if(uploadResult.Error != null) {
+                throw new Exception(uploadResult.Error.Message);
             }
 
             return new PhotoUploadResult
