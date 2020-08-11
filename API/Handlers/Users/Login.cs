@@ -47,7 +47,7 @@ namespace API.Handlers.Users
                         user_id = user.Id,
                         username = user.UserName,
                         email = request.email,
-                        avatar = user.avatar,
+                        // avatar = user.avatar,
                         token = jWTGenerator.CreateToken(user)
                     };
 

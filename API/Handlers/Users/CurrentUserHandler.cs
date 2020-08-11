@@ -33,7 +33,7 @@ namespace API.Handlers.Users
                 {
                     user_id = user.Id,
                     username = user.UserName,
-                    avatar = user.avatar,
+                    // avatar = user.avatar,
                     email = user.Email,
                     token = jWTGenerator.CreateToken(user)
                 };

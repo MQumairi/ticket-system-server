@@ -56,7 +56,7 @@ namespace API.Handlers.Users
                         user_id = userToRegister.Id,
                         username = request.username,
                         email = request.email,
-                        avatar = userToRegister.avatar,
+                        // avatar = userToRegister.avatar,
                         token = jWTGenerator.CreateToken(userToRegister)
                     };
                 }
