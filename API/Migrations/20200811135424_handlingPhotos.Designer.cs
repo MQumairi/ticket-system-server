@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200811135424_handlingPhotos")]
+    partial class handlingPhotos
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("attachment_id")
+                    b.Property<string>("attachment_url")
                         .HasColumnType("text");
 
                     b.Property<string>("author_id")
@@ -65,7 +67,7 @@ namespace API.Migrations
 
                     b.HasKey("post_id");
 
-                    b.HasIndex("attachment_id")
+                    b.HasIndex("attachment_url")
                         .IsUnique();
 
                     b.HasIndex("author_id");
@@ -169,15 +171,13 @@ namespace API.Migrations
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
 
-                    b.Property<string>("avatar_id")
+                    b.Property<string>("avatar_url")
                         .HasColumnType("text");
 
                     b.Property<string>("first_name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.Property<string>("surname")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -189,7 +189,7 @@ namespace API.Migrations
                         .IsUnique()
                         .HasName("UserNameIndex");
 
-                    b.HasIndex("avatar_id")
+                    b.HasIndex("avatar_url")
                         .IsUnique();
 
                     b.ToTable("AspNetUsers");
@@ -376,8 +376,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Attachment", "attachment")
                         .WithOne("post")
-                        .HasForeignKey("API.Models.Post", "attachment_id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("API.Models.Post", "attachment_url");
 
                     b.HasOne("API.Models.User", "user")
                         .WithMany("posts")
@@ -390,8 +389,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Avatar", "avatar")
                         .WithOne("user")
-                        .HasForeignKey("API.Models.User", "avatar_id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("API.Models.User", "avatar_url");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

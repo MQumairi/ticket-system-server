@@ -37,5 +37,11 @@ namespace API.Controllers
         {
             return await mediator.Send(new CurrentUserHandler.Query());
         }
+
+        [HttpPut]
+        public async Task<ActionResult<Unit>> Edit(EditPorfile.Command command)
+        {
+            return await mediator.Send(command);
+        }
     }
 }

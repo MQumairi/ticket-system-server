@@ -4,23 +4,22 @@ using System.Threading;
 using System.Threading.Tasks;
 using API.Infrastructure.Errors;
 using API.Infrastructure.Images;
-using API.Models;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
-namespace API.Handlers.Tickets
+namespace API.Handlers.Avatars
 {
     public class Delete
     {
         public class Command : IRequest
         {
-            public int post_id { get; set; }
+            public string Id { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
         {
             private readonly ApplicationDBContext context;
             private readonly PhotoAccessor photoAccessor;
+
             public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor)
             {
                 this.photoAccessor = photoAccessor;
@@ -29,23 +28,22 @@ namespace API.Handlers.Tickets
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                Ticket ticket = await context.tickets.FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
-                if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
+                //Handler logic
+                var avatar = await context.profile_pics.FindAsync(request.Id);
 
-                if (ticket.attachment_id != null)
-                {
-                    var attachment = await context.attachments.FindAsync(ticket.attachment_id);
-                    photoAccessor.DeletePhoto(attachment.Id);
-                    context.attachments.Remove(attachment);
+                if(avatar == null) {
+                    throw new RestException(HttpStatusCode.NotFound, new {avatar = "Not found"});
                 }
 
-                context.tickets.Remove(ticket);
+                photoAccessor.DeletePhoto(request.Id);
+                context.profile_pics.Remove(avatar);
 
                 var success = await context.SaveChangesAsync() > 0;
                 if (success) return Unit.Value;
 
                 throw new Exception("Problem saving data");
             }
+
         }
     }
 }

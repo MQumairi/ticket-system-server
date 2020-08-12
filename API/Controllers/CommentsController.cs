@@ -19,32 +19,14 @@ namespace API.Controllers
             this.mediator = mediator;
         }
 
-        [HttpGet]
-        public async Task<ActionResult<List<Comment>>> List()
-        {
-            return await mediator.Send(new List.Query());
-        }
-
-        [HttpGet("{id}/comments")]
-        public async Task<ActionResult<List<Comment>>> ListPostComments(int id)
-        {
-            return await mediator.Send(new Handlers.Comments.ListPostComments.Query { parent_id = id });
-        }
-
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Comment>> Details(int id)
-        {
-            return await mediator.Send(new Details.Query { id = id });
-        }
-
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(Create.Command command)
+        public async Task<ActionResult<Unit>> Create([FromForm]Create.Command command)
         {
             return await mediator.Send(command);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
+        public async Task<ActionResult<Unit>> Edit([FromForm]Edit.Command command, int id)
         {
             command.post_id = id;
             return await mediator.Send(command);
@@ -55,7 +37,6 @@ namespace API.Controllers
         {
             return await mediator.Send(new Delete.Command { post_id = id });
         }
-
 
     }
 }
