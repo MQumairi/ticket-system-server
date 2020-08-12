@@ -42,7 +42,7 @@ namespace API
 
             var builder = services.AddIdentityCore<User>();
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-
+            identityBuilder.AddRoles<Role>();
             identityBuilder.AddEntityFrameworkStores<ApplicationDBContext>();
             identityBuilder.AddSignInManager<SignInManager<User>>();
 

@@ -9,7 +9,7 @@ namespace API.Persistence
 {
     public class Seed
     {
-        public static async Task seedTickets(ApplicationDBContext context, UserManager<User> userManager)
+        public static async Task seedTickets(ApplicationDBContext context, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
 
             //Seeding Users
@@ -31,6 +31,17 @@ namespace API.Persistence
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
+            }
+
+            //Seeding Roles
+            if(!roleManager.Roles.Any())
+            {
+                var roleToAdd = new Role {
+                    Name = "Admin",
+                    color = "orange"
+                };
+
+                await roleManager.CreateAsync(roleToAdd);
             }
 
             //Seeding Products

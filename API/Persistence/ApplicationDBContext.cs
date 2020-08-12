@@ -21,6 +21,10 @@ public class ApplicationDBContext : IdentityDbContext<User>
     public DbSet<Product> products { get; set; }
     public DbSet<Status> status { get; set; }
 
+
+    //Role
+    public DbSet<Role> roles {get; set;}
+
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
