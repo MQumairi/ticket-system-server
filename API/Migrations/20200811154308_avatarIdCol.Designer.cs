@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200811154308_avatarIdCol")]
+    partial class avatarIdCol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,7 +51,7 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("attachment_id")
+                    b.Property<string>("attachment_url")
                         .HasColumnType("text");
 
                     b.Property<string>("author_id")
@@ -65,7 +67,7 @@ namespace API.Migrations
 
                     b.HasKey("post_id");
 
-                    b.HasIndex("attachment_id")
+                    b.HasIndex("attachment_url")
                         .IsUnique();
 
                     b.HasIndex("author_id");
@@ -376,8 +378,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Attachment", "attachment")
                         .WithOne("post")
-                        .HasForeignKey("API.Models.Post", "attachment_id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("API.Models.Post", "attachment_url");
 
                     b.HasOne("API.Models.User", "user")
                         .WithMany("posts")
@@ -390,8 +391,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Avatar", "avatar")
                         .WithOne("user")
-                        .HasForeignKey("API.Models.User", "avatar_id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("API.Models.User", "avatar_id");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

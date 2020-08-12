@@ -10,6 +10,8 @@ namespace API.Models.DTO.Mapping
             CreateMap<Product, ProductDto>();
             CreateMap<Status, StatusDto>();
             CreateMap<User, UserDto>();
+            CreateMap<Avatar, AvatarDto>();
+            CreateMap<Attachment, AttachmentDto>();
             CreateMap<Comment, CommentDto>();
         }
     }

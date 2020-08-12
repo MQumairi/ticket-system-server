@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using API.Infrastructure.Errors;
 using API.Infrastructure.Security;
 using API.Models;
+using API.Models.DTO;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -24,8 +26,12 @@ namespace API.Handlers.Users
             private readonly UserManager<User> userManager;
             private readonly SignInManager<User> signInManager;
             private readonly JWTGenerator jWTGenerator;
-            public Handler(UserManager<User> userManager, SignInManager<User> signInManager, JWTGenerator jWTGenerator)
+            private readonly ApplicationDBContext context;
+            private readonly IMapper mapper;
+            public Handler(ApplicationDBContext context, UserManager<User> userManager, SignInManager<User> signInManager, JWTGenerator jWTGenerator, IMapper mapper)
             {
+                this.mapper = mapper;
+                this.context = context;
                 this.jWTGenerator = jWTGenerator;
                 this.userManager = userManager;
                 this.signInManager = signInManager;
@@ -39,6 +45,10 @@ namespace API.Handlers.Users
 
                 var result = await signInManager.CheckPasswordSignInAsync(user, request.password, false);
 
+                var fetched_avatar = await context.profile_pics.FindAsync(user.avatar_id);
+
+                var avatar_to_return = mapper.Map<Avatar, AvatarDto>(fetched_avatar);
+
                 if (result.Succeeded)
                 {
                     //TODO: Generate a JWT
@@ -47,7 +57,9 @@ namespace API.Handlers.Users
                         user_id = user.Id,
                         username = user.UserName,
                         email = request.email,
-                        avatar = user.avatar,
+                        first_name = user.first_name,
+                        surname = user.surname,
+                        avatar = avatar_to_return,
                         token = jWTGenerator.CreateToken(user)
                     };
 

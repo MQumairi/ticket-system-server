@@ -1,5 +1,6 @@
 using System.Text;
 using API.Handlers.Tickets;
+using API.Infrastructure.Images;
 using API.Infrastructure.Middleware;
 using API.Infrastructure.Security;
 using API.Models;
@@ -48,7 +49,7 @@ namespace API
             services.AddAuthentication();
             services.AddScoped<JWTGenerator>();
 
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("super secret key"));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(opt =>
             {
@@ -74,6 +75,10 @@ namespace API
             });
 
             services.AddAutoMapper(typeof(TicketDto));
+
+            services.Configure<CloudinarySettings>(Configuration.GetSection("Cloudinary"));
+
+            services.AddScoped<PhotoAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

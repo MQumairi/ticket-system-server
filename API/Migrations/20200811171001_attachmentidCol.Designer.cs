@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200811171001_attachmentidCol")]
+    partial class attachmentidCol
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -376,8 +378,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Attachment", "attachment")
                         .WithOne("post")
-                        .HasForeignKey("API.Models.Post", "attachment_id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("API.Models.Post", "attachment_id");
 
                     b.HasOne("API.Models.User", "user")
                         .WithMany("posts")
@@ -390,8 +391,7 @@ namespace API.Migrations
                 {
                     b.HasOne("API.Models.Avatar", "avatar")
                         .WithOne("user")
-                        .HasForeignKey("API.Models.User", "avatar_id")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .HasForeignKey("API.Models.User", "avatar_id");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

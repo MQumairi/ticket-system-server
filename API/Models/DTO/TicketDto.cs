@@ -21,6 +21,9 @@ namespace API.Models.DTO
 
         public StatusDto status { get; set; }
 
+        public AttachmentDto attachment { get; set; }
+
         public List<CommentDto> comments { get; set; }
+
     }
 }

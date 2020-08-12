@@ -15,6 +15,8 @@ namespace API.Handlers.Users
     {
         public class Command : IRequest<CurrentUser>
         {
+            public string first_name { get; set; }
+            public string surname { get; set; }
             public string username { get; set; }
             public string email { get; set; }
             public string password { get; set; }
@@ -44,6 +46,8 @@ namespace API.Handlers.Users
                 {
                     UserName = request.username,
                     Email = request.email,
+                    first_name = request.first_name,
+                    surname = request.surname
                 };
 
                 var registerUser = await userManager.CreateAsync(userToRegister, request.password);
@@ -53,7 +57,12 @@ namespace API.Handlers.Users
                     // return Unit.Value;
                     return new CurrentUser
                     {
-                        email = request.email,
+                        user_id = userToRegister.Id,
+                        username = userToRegister.UserName,
+                        email = userToRegister.Email,
+                        first_name = userToRegister.first_name,
+                        surname = userToRegister.surname,
+                        avatar = null,
                         token = jWTGenerator.CreateToken(userToRegister)
                     };
                 }

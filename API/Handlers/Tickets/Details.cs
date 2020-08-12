@@ -32,10 +32,15 @@ namespace API.Handlers.Tickets
             {
                 Ticket ticket = await context.tickets
                                             .Include(ticket => ticket.user)
+                                                .ThenInclude(user => user.avatar)
                                             .Include(ticket => ticket.product)
                                             .Include(ticket => ticket.status)
+                                            .Include(ticket => ticket.attachment)
                                             .Include(ticket => ticket.comments)
                                                 .ThenInclude(comment => comment.user)
+                                                    .ThenInclude(user => user.avatar)
+                                            .Include(ticket => ticket.comments)
+                                                .ThenInclude(comment => comment.attachment)
                                             .FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
                 if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
 

@@ -13,5 +13,7 @@ namespace API.Models.DTO
 
         public UserDto user { get; set; }
 
+        public AttachmentDto attachment {get; set; }
+
     }
 }

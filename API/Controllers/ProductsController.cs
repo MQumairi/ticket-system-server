@@ -4,6 +4,7 @@ using API.Handlers.Products;
 using API.Models;
 using API.Models.DTO;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers

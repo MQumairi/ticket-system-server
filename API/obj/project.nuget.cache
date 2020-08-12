@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Scc6biSwVmqmE183PXqlHAdx1OztysflaKCp2WsZ65BhLD/C7p0tfA0UfgDW5Tw5wM7EILftjm5xgtLVBSKOBg==",
+  "dgSpecHash": "MJAe9RwqGwbuH+cieqDqEhG6iaiKgVIeRp8BjLkFAfzHva1EgnzRYw0UFZcoaUfv0fwJCsV0ORqFirPl9HTCmw==",
   "success": true,
   "projectFilePath": "/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/API.csproj",
   "expectedPackageFiles": [
     "/Users/mqumairi/.nuget/packages/automapper/8.1.1/automapper.8.1.1.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/6.1.1/automapper.extensions.microsoft.dependencyinjection.6.1.1.nupkg.sha512",
+    "/Users/mqumairi/.nuget/packages/cloudinarydotnet/1.11.0/cloudinarydotnet.1.11.0.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/mediatr/8.0.0/mediatr.8.0.0.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/mediatr.extensions.microsoft.dependencyinjection/8.0.1/mediatr.extensions.microsoft.dependencyinjection.8.0.1.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/microsoft.aspnetcore.authentication.jwtbearer/3.1.5/microsoft.aspnetcore.authentication.jwtbearer.3.1.5.nupkg.sha512",

@@ -21,5 +21,12 @@ namespace API.Models
         [Required]
         [ForeignKey("user")]
         public string author_id { get; set; }
+
+
+        //Relationshop wtih Attachment entity
+        public Attachment attachment { get; set; }
+
+        [ForeignKey("attachment")]
+        public string attachment_id { get; set; }
     }
 }
