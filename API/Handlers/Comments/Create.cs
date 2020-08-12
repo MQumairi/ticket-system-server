@@ -1,8 +1,10 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using API.Infrastructure.Images;
 using API.Models;
 using MediatR;
+using Microsoft.AspNetCore.Http;
 
 namespace API.Handlers.Comments
 {
@@ -15,13 +17,18 @@ namespace API.Handlers.Comments
             public string description { get; set; }
             public string author_id { get; set; }
             public int parent_post_id { get; set; }
+
+            //If there is an attachment
+            public IFormFile image { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
         {
             private readonly ApplicationDBContext context;
-            public Handler(ApplicationDBContext context)
+            private readonly PhotoAccessor photoAccessor;
+            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor)
             {
+                this.photoAccessor = photoAccessor;
                 this.context = context;
             }
 
@@ -34,6 +41,18 @@ namespace API.Handlers.Comments
                     author_id = request.author_id,
                     parent_post_id = request.parent_post_id
                 };
+
+                if (request.image != null)
+                {
+                    var uploadResults = photoAccessor.AddPhoto(request.image);
+
+                    var new_attachment = new Attachment {
+                        Id = uploadResults.PublicId,
+                        url = uploadResults.Url
+                    };
+
+                    comment.attachment = new_attachment;
+                }
 
                 context.comments.Add(comment);
                 //Handler logic

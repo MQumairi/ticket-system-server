@@ -37,6 +37,8 @@ namespace API.Handlers.Tickets
                                             .Include(ticket => ticket.attachment)
                                             .Include(ticket => ticket.comments)
                                                 .ThenInclude(comment => comment.user)
+                                            .Include(ticket => ticket.comments)
+                                                .ThenInclude(comment => comment.attachment)
                                             .FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
                 if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
 

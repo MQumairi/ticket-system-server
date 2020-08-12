@@ -35,8 +35,8 @@ namespace API.Handlers.Tickets
                 if (ticket.attachment_id != null)
                 {
                     var attachment = await context.attachments.FindAsync(ticket.attachment_id);
-                    context.photos.Remove(attachment);
                     photoAccessor.DeletePhoto(attachment.Id);
+                    context.attachments.Remove(attachment);
                 }
 
                 context.tickets.Remove(ticket);

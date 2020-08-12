@@ -53,11 +53,5 @@ namespace API.Controllers
         {
             return await mediator.Send(new Delete.Command { post_id = id });
         }
-
-        [HttpGet("{id}/comments")]
-        public async Task<ActionResult<List<Comment>>> ListPostComments(int id)
-        {
-            return await mediator.Send(new Handlers.Comments.ListPostComments.Query {parent_id = id});
-        }
     }
 }
