@@ -2,6 +2,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using API.Infrastructure.Security;
 using API.Models;
+using API.Models.DTO;
+using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
 
@@ -17,8 +19,10 @@ namespace API.Handlers.Users
             private readonly UserManager<User> userManager;
             private readonly JWTGenerator jWTGenerator;
             private readonly UserAccessor userAccessor;
-            public Handler(ApplicationDBContext context, UserManager<User> userManager, JWTGenerator jWTGenerator, UserAccessor userAccessor)
+            private readonly IMapper mapper;
+            public Handler(ApplicationDBContext context, UserManager<User> userManager, JWTGenerator jWTGenerator, UserAccessor userAccessor, IMapper mapper)
             {
+                this.mapper = mapper;
                 this.userAccessor = userAccessor;
                 this.jWTGenerator = jWTGenerator;
                 this.userManager = userManager;
@@ -29,15 +33,17 @@ namespace API.Handlers.Users
             {
                 var user = await userManager.FindByEmailAsync(userAccessor.getCurrentUsername());
 
-                var fetched_avatar = await context.photos.FindAsync(user.avatar_id);
+                var fetched_avatar = await context.profile_pics.FindAsync(user.avatar_id);
+                var avatar_to_return = mapper.Map<Avatar, AvatarDto>(fetched_avatar);
 
                 return new CurrentUser
                 {
                     user_id = user.Id,
                     username = user.UserName,
-                    avatar = fetched_avatar.url,
+                    avatar = avatar_to_return,
                     email = user.Email,
-                    token = jWTGenerator.CreateToken(user)
+                    first_name = user.first_name,
+                    surname = user.surname,
                 };
             }
         }

@@ -30,6 +30,7 @@ namespace API.Handlers.Tickets
                                             .Include(ticket => ticket.product)
                                             .Include(ticket => ticket.status)
                                             .Include(ticket => ticket.user)
+                                                .ThenInclude(user => user.avatar)
                                             .ToListAsync();
 
                 List<TicketDto> ticketDtos = new List<TicketDto>();

@@ -1,3 +1,5 @@
+using API.Models.DTO;
+
 namespace API.Models
 {
     public class CurrentUser
@@ -8,7 +10,6 @@ namespace API.Models
         public string first_name {get; set;}
         public string surname {get; set;}
         public string token { get; set; }
-
-        public string avatar {get; set;}
+        public AvatarDto avatar {get; set;}
     }
 }
