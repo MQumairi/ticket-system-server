@@ -14,7 +14,7 @@ namespace API.Handlers.Avatars
     {
         public class Command : IRequest<Photo>
         {
-            public IFormFile File { get; set; }
+            public IFormFile image { get; set; }
         }
 
         public class Handler : IRequestHandler<Command, Photo>
@@ -32,9 +32,9 @@ namespace API.Handlers.Avatars
             public async Task<Photo> Handle(Command request, CancellationToken cancellationToken)
             {
                 //Handler logic
-                var uploadResult = photoAccessor.AddPhoto(request.File);
+                var uploadResult = photoAccessor.AddPhoto(request.image);
 
-                var user = await context.Users.SingleOrDefaultAsync(user => user.Email == userAccessor.getCurrentUsername());
+                var user = await context.Users.Include(user => user.avatar).SingleOrDefaultAsync(user => user.Email == userAccessor.getCurrentUsername());
 
                 var avatar = new Avatar
                 {
@@ -42,7 +42,11 @@ namespace API.Handlers.Avatars
                     url = uploadResult.Url
                 };
 
-                if(user.avatar != null) context.photos.Remove(user.avatar);
+                if (user.avatar != null)
+                {
+                    photoAccessor.DeletePhoto(user.avatar_id);
+                    context.photos.Remove(user.avatar);
+                }
 
                 context.photos.Add(avatar);
 

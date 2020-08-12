@@ -13,9 +13,9 @@ public class ApplicationDBContext : IdentityDbContext<User>
     public DbSet<Comment> comments { get; set; }
 
     //Photos 
-    public DbSet<Photo> photos {get; set;}
-    public DbSet<Avatar> profile_pics {get; set;}
-    public DbSet<Attachment> attachments {get; set;}
+    public DbSet<Photo> photos { get; set; }
+    public DbSet<Avatar> profile_pics { get; set; }
+    public DbSet<Attachment> attachments { get; set; }
 
     //Rest
     public DbSet<Product> products { get; set; }
@@ -24,5 +24,15 @@ public class ApplicationDBContext : IdentityDbContext<User>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
+
+        builder.Entity<Avatar>()
+        .HasOne(avatar => avatar.user)
+        .WithOne(user => user.avatar)
+        .OnDelete(DeleteBehavior.SetNull);
+
+        builder.Entity<Attachment>()
+        .HasOne(attachment => attachment.post)
+        .WithOne(post => post.attachment)
+        .OnDelete(DeleteBehavior.SetNull);
     }
 }

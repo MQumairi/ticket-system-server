@@ -62,7 +62,7 @@ namespace API.Handlers.Users
                         email = userToRegister.Email,
                         first_name = userToRegister.first_name,
                         surname = userToRegister.surname,
-                        avatar_url = null,
+                        avatar = null,
                         token = jWTGenerator.CreateToken(userToRegister)
                     };
                 }

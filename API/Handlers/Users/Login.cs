@@ -53,7 +53,7 @@ namespace API.Handlers.Users
                         email = request.email,
                         first_name = user.first_name,
                         surname = user.surname,
-                        avatar_url = fetched_avatar.url,
+                        avatar = fetched_avatar.url,
                         token = jWTGenerator.CreateToken(user)
                     };
 

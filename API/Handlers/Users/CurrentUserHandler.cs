@@ -35,7 +35,7 @@ namespace API.Handlers.Users
                 {
                     user_id = user.Id,
                     username = user.UserName,
-                    avatar_url = fetched_avatar.url,
+                    avatar = fetched_avatar.url,
                     email = user.Email,
                     token = jWTGenerator.CreateToken(user)
                 };

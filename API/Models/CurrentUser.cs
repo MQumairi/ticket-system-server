@@ -9,6 +9,6 @@ namespace API.Models
         public string surname {get; set;}
         public string token { get; set; }
 
-        public string avatar_url {get; set;}
+        public string avatar {get; set;}
     }
 }

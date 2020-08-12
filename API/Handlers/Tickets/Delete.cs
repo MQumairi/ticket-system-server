@@ -3,8 +3,10 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Infrastructure.Errors;
+using API.Infrastructure.Images;
 using API.Models;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Handlers.Tickets
 {
@@ -18,15 +20,24 @@ namespace API.Handlers.Tickets
         public class Handler : IRequestHandler<Command>
         {
             private readonly ApplicationDBContext context;
-            public Handler(ApplicationDBContext context)
+            private readonly PhotoAccessor photoAccessor;
+            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor)
             {
+                this.photoAccessor = photoAccessor;
                 this.context = context;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                Ticket ticket = await context.tickets.FindAsync(request.post_id);
-                if(ticket == null) throw new RestException (HttpStatusCode.NotFound, new{ticket = "Not found."});
+                Ticket ticket = await context.tickets.FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
+                if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
+
+                if (ticket.attachment_id != null)
+                {
+                    var attachment = await context.attachments.FindAsync(ticket.attachment_id);
+                    context.photos.Remove(attachment);
+                    photoAccessor.DeletePhoto(attachment.Id);
+                }
 
                 context.tickets.Remove(ticket);
 

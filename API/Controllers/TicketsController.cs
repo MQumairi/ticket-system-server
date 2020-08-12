@@ -36,13 +36,13 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create(Create.Command command)
+        public async Task<ActionResult<Unit>> Create([FromForm]Create.Command command)
         {
             return await mediator.Send(command);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit(Edit.Command command, int id)
+        public async Task<ActionResult<Unit>> Edit([FromForm]Edit.Command command, int id)
         {
             command.post_id = id;
             return await mediator.Send(command);

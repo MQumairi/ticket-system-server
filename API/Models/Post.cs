@@ -27,6 +27,6 @@ namespace API.Models
         public Attachment attachment { get; set; }
 
         [ForeignKey("attachment")]
-        public string attachment_url { get; set; }
+        public string attachment_id { get; set; }
     }
 }
