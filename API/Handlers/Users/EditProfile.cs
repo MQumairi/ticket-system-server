@@ -41,27 +41,39 @@ namespace API.Handlers.Users
                 var user = await userManager.FindByEmailAsync(userAccessor.getCurrentUsername());
 
                 //Change fields
-                user.first_name = request.first_name ?? user.first_name;
-                user.surname = request.surname ?? user.surname;
-
-                if(request.username != null) {
-                    await userManager.SetUserNameAsync(user, request.username);
+                if (request.first_name != null || request.surname != null)
+                {
+                    user.first_name = request.first_name ?? user.first_name;
+                    user.surname = request.surname ?? user.surname;
                 }
 
-                if(request.email != null) {
-                    await userManager.SetEmailAsync(user, request.email);
+                bool userManager_changes = true;
+                bool success = true;
+
+                if (request.username != null)
+                {
+                    var username_change = await userManager.SetUserNameAsync(user, request.username);
+                    userManager_changes = username_change.Succeeded;
                 }
-                
+
+                if (request.email != null)
+                {
+                    var email_change = await userManager.SetEmailAsync(user, request.email);
+                    userManager_changes = email_change.Succeeded;
+                }
+
                 //Change password after confirmation
-                if(request.new_password != null) {
-                    await userManager.ChangePasswordAsync(user, request.current_password, request.new_password);
+                if (request.new_password != null)
+                {
+                    var password_change = await userManager.ChangePasswordAsync(user, request.current_password, request.new_password);
+                    userManager_changes = password_change.Succeeded;
                 }
 
                 //Save
-                var success = await context.SaveChangesAsync() > 0;
-                if (success) return Unit.Value;
+                await context.SaveChangesAsync();
+                if(userManager_changes) return Unit.Value;
 
-                throw new Exception("Problem saving data");
+                throw new Exception("Problem saving data, success is " + success + ", while umc is " + userManager_changes);
             }
 
         }

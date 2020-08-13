@@ -17,7 +17,6 @@ namespace API.Handlers.Users
             public string surname { get; set; }
             public string username { get; set; }
             public string email { get; set; }
-            public string new_password { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -37,33 +36,33 @@ namespace API.Handlers.Users
                 var user = await userManager.FindByIdAsync(request.user_id);
 
                 //Change fields
-                user.first_name = request.first_name ?? user.first_name;
-                user.surname = request.surname ?? user.surname;
+                if (request.first_name != null || request.surname != null)
+                {
+                    user.first_name = request.first_name ?? user.first_name;
+                    user.surname = request.surname ?? user.surname;
+                }
+
+                bool userManager_changes = true;
+                bool success = true;
 
                 if (request.username != null)
                 {
-                    await userManager.SetUserNameAsync(user, request.username);
+                    var change_username = await userManager.SetUserNameAsync(user, request.username);
+                    userManager_changes = change_username.Succeeded;
                 }
 
                 if (request.email != null)
                 {
-                    await userManager.SetEmailAsync(user, request.email);
-                }
-
-                //Change password after confirmation
-                if (request.new_password != null)
-                {
-                    var pass_token = await userManager.GeneratePasswordResetTokenAsync(user);
-                    await userManager.ResetPasswordAsync(user, pass_token, request.new_password);
+                    var change_email = await userManager.SetEmailAsync(user, request.email);
+                    userManager_changes = change_email.Succeeded;
                 }
 
                 //Save
-                var success = await context.SaveChangesAsync() > 0;
-                if (success) return Unit.Value;
+                await context.SaveChangesAsync();
+                if (userManager_changes) return Unit.Value;
 
-                throw new Exception("Problem saving data");
+                throw new Exception("Problem saving data, success is " + success + ", while umc is " + userManager_changes);
             }
-
         }
     }
 }

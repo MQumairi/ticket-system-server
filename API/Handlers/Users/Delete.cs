@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -32,6 +33,9 @@ namespace API.Handlers.Users
                 var user = await userManager.FindByIdAsync(request.user_id);
 
                 if(user == null) throw new RestException(HttpStatusCode.NotFound, new {user = "Not Found"});
+
+                var userRoles = await userManager.GetRolesAsync(user) as List<string>;
+                if(userRoles.Contains("Admin")) throw new RestException(HttpStatusCode.Forbidden, new {user = "Cannot delete admin accounts!"});
 
                 var deletion = await userManager.DeleteAsync(user);
 

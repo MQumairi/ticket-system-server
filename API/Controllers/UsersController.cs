@@ -48,7 +48,6 @@ namespace API.Controllers
 
 
         //Admin stuff
-
         [HttpGet("list")]
         public async Task<ActionResult<List<UserDto>>> List()
         {
