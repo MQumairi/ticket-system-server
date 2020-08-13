@@ -48,18 +48,21 @@ namespace API.Controllers
 
 
         //Admin stuff
+        [Authorize(Roles = "Admin")]
         [HttpGet("list")]
         public async Task<ActionResult<List<UserDto>>> List()
         {
             return await mediator.Send(new List.Query());
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("list/{role_name}")]
         public async Task<ActionResult<List<UserDto>>> RoleUsers(string role_name)
         {
             return await mediator.Send(new RoleUsers.Query { role_name = role_name });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}/assign")]
         public async Task<ActionResult<Unit>> AssignRole(string id, AssignRole.Command command)
         {
@@ -67,6 +70,7 @@ namespace API.Controllers
             return await mediator.Send(command);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}/unassign")]
         public async Task<ActionResult<Unit>> UnassignRole(string id, UnassignRole.Command command)
         {
@@ -74,12 +78,14 @@ namespace API.Controllers
             return await mediator.Send(command);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> Details(string id)
         {
             return await mediator.Send(new Details.Query { user_id = id });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(string id, Edit.Command command)
         {
@@ -87,6 +93,7 @@ namespace API.Controllers
             return await mediator.Send(command);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(string id)
         {

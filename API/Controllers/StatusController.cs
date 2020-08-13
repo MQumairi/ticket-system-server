@@ -31,12 +31,14 @@ namespace API.Controllers
             return await mediator.Send(new Details.Query { status_id = id });
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public async Task<ActionResult<Unit>> Create(Create.Command command)
         {
             return await mediator.Send(command);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPut("{id}")]
         public async Task<ActionResult<Unit>> Edit(int id, Edit.Command command)
         {
@@ -44,6 +46,7 @@ namespace API.Controllers
             return await mediator.Send(command);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Unit>> Delete(int id)
         {

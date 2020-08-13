@@ -60,7 +60,7 @@ namespace API.Handlers.Users
                         first_name = user.first_name,
                         surname = user.surname,
                         avatar = avatar_to_return,
-                        token = jWTGenerator.CreateToken(user)
+                        token = await jWTGenerator.CreateToken(user)
                     };
 
                     return currentUser;
