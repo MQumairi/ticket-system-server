@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using API.Handlers.Tickets;
 using API.Infrastructure.Images;
@@ -42,11 +43,12 @@ namespace API
 
             var builder = services.AddIdentityCore<User>();
             var identityBuilder = new IdentityBuilder(builder.UserType, builder.Services);
-
+            identityBuilder.AddRoles<Role>();
             identityBuilder.AddEntityFrameworkStores<ApplicationDBContext>();
             identityBuilder.AddSignInManager<SignInManager<User>>();
 
             services.AddAuthentication();
+
             services.AddScoped<JWTGenerator>();
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["TokenKey"]));
@@ -58,7 +60,7 @@ namespace API
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = key,
                     ValidateAudience = false,
-                    ValidateIssuer = false
+                    ValidateIssuer = false,
                 };
             });
 

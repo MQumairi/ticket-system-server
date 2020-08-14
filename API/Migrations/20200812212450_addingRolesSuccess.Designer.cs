@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Migrations
 {
     [DbContext(typeof(ApplicationDBContext))]
-    partial class ApplicationDBContextModelSnapshot : ModelSnapshot
+    [Migration("20200812212450_addingRolesSuccess")]
+    partial class addingRolesSuccess
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -204,10 +206,6 @@ namespace API.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("text");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("text");
-
                     b.Property<string>("Name")
                         .HasColumnType("character varying(256)")
                         .HasMaxLength(256);
@@ -223,8 +221,6 @@ namespace API.Migrations
                         .HasName("RoleNameIndex");
 
                     b.ToTable("AspNetRoles");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityRole");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -376,16 +372,6 @@ namespace API.Migrations
                     b.HasIndex("status_id");
 
                     b.HasDiscriminator().HasValue("Ticket");
-                });
-
-            modelBuilder.Entity("API.Models.Role", b =>
-                {
-                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityRole");
-
-                    b.Property<string>("color")
-                        .HasColumnType("text");
-
-                    b.HasDiscriminator().HasValue("Role");
                 });
 
             modelBuilder.Entity("API.Models.Post", b =>

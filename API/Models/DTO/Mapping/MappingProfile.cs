@@ -13,6 +13,7 @@ namespace API.Models.DTO.Mapping
             CreateMap<Avatar, AvatarDto>();
             CreateMap<Attachment, AttachmentDto>();
             CreateMap<Comment, CommentDto>();
+            CreateMap<Role, RoleDto>();
         }
     }
 }

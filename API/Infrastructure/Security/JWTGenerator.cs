@@ -6,22 +6,34 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using System;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace API.Infrastructure.Security
 {
     public class JWTGenerator
     {
         SymmetricSecurityKey key;
+        private readonly UserManager<User> userManager;
 
-        public JWTGenerator(IConfiguration config)
+        public JWTGenerator(IConfiguration config, UserManager<User> userManager)
         {
-             this.key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
+            this.userManager = userManager;
+            this.key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
-        public string CreateToken(User user)
+        public async Task<string> CreateToken(User user)
         {
+            var roles = await userManager.GetRolesAsync(user) as List<string>;
+
             List<Claim> claims = new List<Claim>{
                 new Claim(JwtRegisteredClaimNames.NameId, user.Email)
             };
+
+            foreach (var role in roles)
+            {
+                var claim = new Claim(ClaimsIdentity.DefaultRoleClaimType, role);
+                claims.Add(claim);
+            }
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 
