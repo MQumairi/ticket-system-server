@@ -36,13 +36,13 @@ namespace API.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Unit>> Create([FromForm]Create.Command command)
+        public async Task<ActionResult<Unit>> Create([FromForm] Create.Command command)
         {
             return await mediator.Send(command);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Unit>> Edit([FromForm]Edit.Command command, int id)
+        public async Task<ActionResult<Unit>> Edit([FromForm] Edit.Command command, int id)
         {
             command.post_id = id;
             return await mediator.Send(command);
@@ -53,5 +53,23 @@ namespace API.Controllers
         {
             return await mediator.Send(new Delete.Command { post_id = id });
         }
+
+        //Developer stuff
+        [Authorize(Roles = "Admin,Developer")]
+        [HttpPut("{id}/assign")]
+        public async Task<ActionResult<Unit>> AssignTicket(int id, AssignTicket.Command command)
+        {
+            command.ticket_id = id;
+            return await mediator.Send(command);
+        }
+
+        [Authorize(Roles = "Admin,Developer")]
+        [HttpPut("{id}/status-change")]
+        public async Task<ActionResult<Unit>> ChangeTicketStatus(int id, ChangeTicketStatus.Command command)
+        {
+            command.ticket_id = id;
+            return await mediator.Send(command);
+        }
+
     }
 }
