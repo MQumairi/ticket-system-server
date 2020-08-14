@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using API.Models;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Persistence
 {
@@ -11,37 +12,59 @@ namespace API.Persistence
     {
         public static async Task seedTickets(ApplicationDBContext context, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
+            List<User> usersToAdd = new List<User>();
+
+            //Seeding Roles
+            if (!roleManager.Roles.Any())
+            {
+                var roleToAdd = new Role
+                {
+                    Name = "Admin",
+                    color = "orange"
+                };
+
+                await roleManager.CreateAsync(roleToAdd);
+            }
 
             //Seeding Users
             if (!userManager.Users.Any())
             {
-                List<User> usersToAdd = new List<User>()
+                User adminAccount = new User
                 {
-                    new User{
-                        UserName = "Bob",
-                        Email = "Bob@email.com"
-                    },
-                    new User{
-                        UserName = "Billy",
-                        Email = "Billy@email.com"
-                    }
+                    UserName = "MQumairi",
+                    Email = "moh.alqumairi@gmail.com",
+                    first_name = "Mohammed",
+                    surname = "Alqumairi"
                 };
+
+                await userManager.AddToRoleAsync(adminAccount, "Admin");
+
+                usersToAdd.Add(new User
+                {
+                    UserName = "BBob",
+                    Email = "Bob@email.com",
+                    first_name = "Billy",
+                    surname = "Bob"
+                });
+
+                usersToAdd.Add(new User
+                {
+                    UserName = "ToshiToshi",
+                    Email = "Toshi@email.com",
+                    first_name = "Toshi",
+                    surname = "Toshi"
+                });
+
+                usersToAdd.Add(adminAccount);
 
                 foreach (var user in usersToAdd)
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
             }
-
-            //Seeding Roles
-            if(!roleManager.Roles.Any())
+            else
             {
-                var roleToAdd = new Role {
-                    Name = "Admin",
-                    color = "orange"
-                };
-
-                await roleManager.CreateAsync(roleToAdd);
+                usersToAdd = await context.Users.ToListAsync();
             }
 
             //Seeding Products
@@ -83,7 +106,8 @@ namespace API.Persistence
                     },
                     new Status {
                         status_text = "Done",
-                        status_color = "green"
+                        status_color = "green",
+                        is_default = true
                     }
                 };
 
@@ -97,7 +121,7 @@ namespace API.Persistence
                 List<Ticket> ticketsToAdd = new List<Ticket>()
                 {
                     new Ticket {
-                        author_id = "2980dd9d-26ad-46b3-baa9-01276ff20162",
+                        author_id = usersToAdd[0].Id,
                         status_id = 1,
                         product_id = 1,
                         title = "Crashes after update",
@@ -106,7 +130,7 @@ namespace API.Persistence
                         },
 
                     new Ticket {
-                        author_id = "2980dd9d-26ad-46b3-baa9-01276ff20162",
+                        author_id = usersToAdd[0].Id,
                         status_id = 1,
                         product_id = 1,
                         title = "Images not loading",
@@ -115,7 +139,7 @@ namespace API.Persistence
                         },
 
                     new Ticket {
-                        author_id = "2980dd9d-26ad-46b3-baa9-01276ff20162",
+                        author_id = usersToAdd[0].Id,
                         status_id = 1,
                         product_id = 1,
                         title = "Long loading time on startup",
@@ -135,14 +159,14 @@ namespace API.Persistence
                 {
                     new Comment {
                         parent_post_id = 4,
-                        author_id = "932cbaed-0393-4e27-9d19-7d19711e1323",
+                        author_id = usersToAdd[1].Id,
                         date_time = DateTime.Now,
                         description = "Working on it now"
                     },
 
                     new Comment {
                         parent_post_id = 4,
-                        author_id = "932cbaed-0393-4e27-9d19-7d19711e1323",
+                        author_id = usersToAdd[1].Id,
                         date_time = DateTime.Now,
                         description = "You're having a networking problem"
                     }
