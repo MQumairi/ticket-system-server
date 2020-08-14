@@ -25,5 +25,15 @@ namespace API.Models
 
         //Relationship with Comment entity
         public List<Comment> comments { get; set; }
+
+        //Relationshop with User entity (Developer)
+        public User developer { get; set; }
+
+        [ForeignKey("developer")]
+        public string developer_id { get; set; } = null;
+
+        //Is archived?
+        [Required]
+        public bool is_archived { get; set; } = false;
     }
 }
