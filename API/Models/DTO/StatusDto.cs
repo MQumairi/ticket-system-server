@@ -5,5 +5,6 @@ namespace API.Models.DTO
         public int status_id { get; set; }
         public string status_text { get; set; }
         public string status_color { get; set; }
+        public bool is_default { get; set; } = false;
     }
 }

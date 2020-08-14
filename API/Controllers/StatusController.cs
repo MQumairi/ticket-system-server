@@ -53,5 +53,13 @@ namespace API.Controllers
             return await mediator.Send(new Delete.Command { status_id = id });
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPut("{id}/set-default")]
+        public async Task<ActionResult<Unit>> SetDefault(int id)
+        {
+            return await mediator.Send(new SetDefault.Command { status_id = id });
+        }
+
+
     }
 }
