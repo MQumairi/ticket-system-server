@@ -1,12 +1,15 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Infrastructure.Errors;
 using API.Infrastructure.Images;
+using API.Infrastructure.Security;
 using API.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 
 namespace API.Handlers.Tickets
 {
@@ -33,16 +36,26 @@ namespace API.Handlers.Tickets
         {
             private readonly ApplicationDBContext context;
             private readonly PhotoAccessor photoAccessor;
-            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor)
+            private readonly UserManager<User> userManager;
+            private readonly UserAccessor userAccessor;
+            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor, UserManager<User> userManager, UserAccessor userAccessor)
             {
+                this.userAccessor = userAccessor;
+                this.userManager = userManager;
                 this.photoAccessor = photoAccessor;
                 this.context = context;
             }
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                //Get current user
+                var current_user = await userManager.FindByEmailAsync(userAccessor.getCurrentUsername());
+                var current_user_roles = await userManager.GetRolesAsync(current_user) as List<string>;
+
                 Ticket ticket = await context.tickets.FindAsync(request.post_id);
                 if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
+
+                if(!(current_user.Id == ticket.author_id || current_user_roles.Contains("Admin"))) throw new RestException(HttpStatusCode.Forbidden, new {user = "You don't have the permission to do this"});
 
                 ticket.description = request.description ?? ticket.description;
                 ticket.title = request.title ?? ticket.title;

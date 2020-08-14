@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Handlers.Products;
-using API.Models;
 using API.Models.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
