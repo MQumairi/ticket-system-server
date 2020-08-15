@@ -31,13 +31,13 @@ namespace API.Handlers.Tickets
             public async Task<TicketDto> Handle(Query request, CancellationToken cancellationToken)
             {
                 Ticket ticket = await context.tickets
-                                            .Include(ticket => ticket.user)
+                                            .Include(ticket => ticket.author)
                                                 .ThenInclude(user => user.avatar)
                                             .Include(ticket => ticket.product)
                                             .Include(ticket => ticket.status)
                                             .Include(ticket => ticket.attachment)
                                             .Include(ticket => ticket.comments)
-                                                .ThenInclude(comment => comment.user)
+                                                .ThenInclude(comment => comment.author)
                                                     .ThenInclude(user => user.avatar)
                                             .Include(ticket => ticket.comments)
                                                 .ThenInclude(comment => comment.attachment)
