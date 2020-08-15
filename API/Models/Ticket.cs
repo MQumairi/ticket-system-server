@@ -27,7 +27,7 @@ namespace API.Models
         public List<Comment> comments { get; set; }
 
         //Relationshop with User entity (Developer)
-        public User developer { get; set; }
+        public User developer { get; set; } = null;
 
         [ForeignKey("developer")]
         public string developer_id { get; set; } = null;

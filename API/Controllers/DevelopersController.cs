@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Handlers.Developers;
 using API.Models;
+using API.Models.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,11 +27,10 @@ namespace API.Controllers
             return await mediator.Send(new List.Query());
         }
 
-        [HttpGet("{id}")]
-        public async Task<ActionResult<List<Ticket>>> ListAssignedTickets(string id)
+        [HttpGet("{id}/tickets")]
+        public async Task<ActionResult<List<TicketDto>>> ListAssignedTickets(string id)
         {
             return await mediator.Send(new ListAssignedTickets.Query { dev_id = id });
         }
-
     }
 }

@@ -63,6 +63,12 @@ namespace API.Controllers
             return await mediator.Send(command);
         }
 
+        [HttpPut("{id}/unassign")]
+        public async Task<ActionResult<Unit>> UnassignTicket(int id)
+        {
+            return await mediator.Send(new UnassignTicket.Command { ticket_id = id });
+        }
+
         [Authorize(Roles = "Admin,Developer")]
         [HttpPut("{id}/status-change")]
         public async Task<ActionResult<Unit>> ChangeTicketStatus(int id, ChangeTicketStatus.Command command)

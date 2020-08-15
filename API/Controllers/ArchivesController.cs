@@ -3,10 +3,12 @@ using System.Threading.Tasks;
 using API.Handlers.Archives;
 using API.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    [Authorize(Roles = "Admin,Developer")]
     [ApiController]
     [Route("api/[controller]")]
     public class ArchivesController : ControllerBase
@@ -16,7 +18,6 @@ namespace API.Controllers
         public ArchivesController(IMediator mediator)
         {
             this.mediator = mediator;
-
         }
 
         // GET api/values
