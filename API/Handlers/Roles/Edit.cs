@@ -37,7 +37,11 @@ namespace API.Handlers.Roles
 
                 role.color = request.role_color ?? role.color;
 
-                if(request.role_name != null) {
+                if (request.role_name != null)
+                {
+                    if (role.Name == "Admin") throw new RestException(HttpStatusCode.Forbidden, new { role = "Cannot Edit the Admin role's name!" });
+                    if (role.Name == "Developer") throw new RestException(HttpStatusCode.Forbidden, new { role = "Cannot Edit the Developer role's name!" });
+
                     await roleManager.SetRoleNameAsync(role, request.role_name);
                 }
 

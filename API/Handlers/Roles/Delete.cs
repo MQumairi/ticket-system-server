@@ -34,6 +34,8 @@ namespace API.Handlers.Roles
                 if (role == null) throw new RestException(HttpStatusCode.NotFound, new { role = "Not found" });
 
                 if (role.Name == "Admin") throw new RestException(HttpStatusCode.Forbidden, new { role = "Cannot delete the Admin role!" });
+                if (role.Name == "Developer") throw new RestException(HttpStatusCode.Forbidden, new { role = "Cannot delete the Developer role!" });
+
 
                 var deletion = await roleManager.DeleteAsync(role);
 

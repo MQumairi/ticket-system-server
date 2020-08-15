@@ -12,7 +12,7 @@ namespace API.Models.DTO
 
         public string description { get; set; }
 
-        [JsonPropertyName("user")]
+        [JsonPropertyName("author")]
         public UserDto user { get; set; }
 
         public string title { get; set; }
@@ -20,6 +20,10 @@ namespace API.Models.DTO
         public ProductDto product { get; set; }
 
         public StatusDto status { get; set; }
+
+        public UserDto developer { get; set; }
+
+        public bool is_archived { get; set; } = false;
 
         public AttachmentDto attachment { get; set; }
 

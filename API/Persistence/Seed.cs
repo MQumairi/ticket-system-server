@@ -17,13 +17,21 @@ namespace API.Persistence
             //Seeding Roles
             if (!roleManager.Roles.Any())
             {
-                var roleToAdd = new Role
+                var adminRole = new Role
                 {
                     Name = "Admin",
                     color = "orange"
                 };
 
-                await roleManager.CreateAsync(roleToAdd);
+                await roleManager.CreateAsync(adminRole);
+
+                var devRole = new Role 
+                {
+                    Name = "Developer",
+                    color = "purple"
+                };
+
+                await roleManager.CreateAsync(devRole);
             }
 
             //Seeding Users
