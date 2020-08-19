@@ -41,7 +41,12 @@ namespace API.Handlers.Developers
                 List<string> user_roles = await userManager.GetRolesAsync(user) as List<string>;
                 if (!user_roles.Contains("Developer")) throw new RestException(HttpStatusCode.BadRequest, new { user = "This user is not a developer!" });
 
-                var tickets = await context.tickets.Where(ticket => ticket.developer_id == user.Id).ToListAsync();
+                var tickets = await context.tickets
+                                            .Include(tickets => tickets.status)
+                                            .Include(tickets => tickets.product)
+                                            .Include(ticket => ticket.author)
+                                                .ThenInclude(user => user.avatar)
+                                            .Where(ticket => ticket.developer_id == user.Id).ToListAsync();
 
                 List<TicketDto> ticketsDto = new List<TicketDto>();
 

@@ -77,5 +77,13 @@ namespace API.Controllers
             return await mediator.Send(command);
         }
 
+        [Authorize(Roles = "Admin,Developer")]
+        [HttpPut("{id}/manage")]
+        public async Task<ActionResult<Unit>> Manage(int id, Manage.Command command)
+        {
+            command.post_id = id;
+            return await mediator.Send(command);
+        }
+
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,18 +50,22 @@ namespace API.Handlers.Users
 
                 var avatar_to_return = mapper.Map<Avatar, AvatarDto>(fetched_avatar);
 
+                var userRoles = await userManager.GetRolesAsync(user) as List<string>;
+
+
                 if (result.Succeeded)
                 {
                     //TODO: Generate a JWT
                     CurrentUser currentUser = new CurrentUser
                     {
-                        user_id = user.Id,
+                        id = user.Id,
                         username = user.UserName,
                         email = request.email,
                         first_name = user.first_name,
                         surname = user.surname,
                         avatar = avatar_to_return,
-                        token = await jWTGenerator.CreateToken(user)
+                        token = await jWTGenerator.CreateToken(user),
+                        roles = userRoles
                     };
 
                     return currentUser;

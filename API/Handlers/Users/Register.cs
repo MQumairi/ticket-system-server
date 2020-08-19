@@ -57,7 +57,7 @@ namespace API.Handlers.Users
                     // return Unit.Value;
                     return new CurrentUser
                     {
-                        user_id = userToRegister.Id,
+                        id = userToRegister.Id,
                         username = userToRegister.UserName,
                         email = userToRegister.Email,
                         first_name = userToRegister.first_name,

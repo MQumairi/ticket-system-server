@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using API.Models;
 using API.Models.DTO;
 using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Handlers.Tickets
@@ -22,8 +24,10 @@ namespace API.Handlers.Tickets
         {
             private readonly ApplicationDBContext context;
             private readonly IMapper mapper;
-            public Handler(ApplicationDBContext context, IMapper mapper)
+            private readonly UserManager<User> userManager;
+            public Handler(ApplicationDBContext context, IMapper mapper, UserManager<User> userManager)
             {
+                this.userManager = userManager;
                 this.mapper = mapper;
                 this.context = context;
             }
@@ -36,6 +40,8 @@ namespace API.Handlers.Tickets
                                             .Include(ticket => ticket.product)
                                             .Include(ticket => ticket.status)
                                             .Include(ticket => ticket.attachment)
+                                            .Include(ticket => ticket.developer)
+                                                .ThenInclude(developer => developer.avatar)
                                             .Include(ticket => ticket.comments)
                                                 .ThenInclude(comment => comment.author)
                                                     .ThenInclude(user => user.avatar)
@@ -44,7 +50,20 @@ namespace API.Handlers.Tickets
                                             .FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
                 if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
 
+                var authorRoles = await userManager.GetRolesAsync(ticket.author) as List<string>;
+
+                var developerRoles = new List<string>();
+                if(ticket.developer != null) developerRoles = await userManager.GetRolesAsync(ticket.developer) as List<string>;
+
                 var ticketToReturn = mapper.Map<Ticket, TicketDto>(ticket);
+
+                ticketToReturn.author.Roles = authorRoles;
+                if(ticket.developer != null) ticketToReturn.developer.Roles = developerRoles;
+
+                for(int i = 0; i < ticket.comments.Count; i++) {
+                    var commentAuthorRoles = await userManager.GetRolesAsync(ticket.comments[i].author) as List<string>;
+                    ticketToReturn.comments[i].author.Roles = commentAuthorRoles;
+                }
 
                 return ticketToReturn;
             }

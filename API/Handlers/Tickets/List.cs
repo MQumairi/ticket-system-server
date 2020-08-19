@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Models;
@@ -31,6 +32,7 @@ namespace API.Handlers.Tickets
                                             .Include(ticket => ticket.status)
                                             .Include(ticket => ticket.author)
                                                 .ThenInclude(user => user.avatar)
+                                            .Where(ticket => !ticket.is_archived)
                                             .ToListAsync();
 
                 List<TicketDto> ticketDtos = new List<TicketDto>();
