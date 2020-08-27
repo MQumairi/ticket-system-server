@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MJAe9RwqGwbuH+cieqDqEhG6iaiKgVIeRp8BjLkFAfzHva1EgnzRYw0UFZcoaUfv0fwJCsV0ORqFirPl9HTCmw==",
+  "dgSpecHash": "ReyP6PUMMSE0Ny/kUFgy8/K8D7+2t4m6h6MncFiMNyC1iFS48dDOyNiiOSdqPit2NxpVFS+8gjh11elZV6zPmQ==",
   "success": true,
-  "projectFilePath": "/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/API.csproj",
+  "projectFilePath": "/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/API.csproj",
   "expectedPackageFiles": [
     "/Users/mqumairi/.nuget/packages/automapper/8.1.1/automapper.8.1.1.nupkg.sha512",
     "/Users/mqumairi/.nuget/packages/automapper.extensions.microsoft.dependencyinjection/6.1.1/automapper.extensions.microsoft.dependencyinjection.6.1.1.nupkg.sha512",

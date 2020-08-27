@@ -54,6 +54,13 @@ namespace API.Controllers
             return await mediator.Send(new Delete.Command { post_id = id });
         }
 
+        //Filter tickets
+        [HttpPost("filter")]
+        public async Task<ActionResult<List<TicketDto>>> Filter(FilterTickets.Query query)
+        {
+            return await mediator.Send(query);
+        }
+
         //Developer stuff
         [Authorize(Roles = "Admin,Developer")]
         [HttpPut("{id}/assign")]
@@ -74,6 +81,14 @@ namespace API.Controllers
         public async Task<ActionResult<Unit>> ChangeTicketStatus(int id, ChangeTicketStatus.Command command)
         {
             command.ticket_id = id;
+            return await mediator.Send(command);
+        }
+
+        [Authorize(Roles = "Admin,Developer")]
+        [HttpPut("{id}/manage")]
+        public async Task<ActionResult<Unit>> Manage(int id, Manage.Command command)
+        {
+            command.post_id = id;
             return await mediator.Send(command);
         }
 

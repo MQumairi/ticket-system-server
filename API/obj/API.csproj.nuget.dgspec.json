@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/API.csproj": {}
+    "/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/API.csproj": {}
   },
   "projects": {
-    "/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/API.csproj": {
+    "/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/API.csproj",
+        "projectUniqueName": "/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/API.csproj",
         "projectName": "API",
-        "projectPath": "/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/API.csproj",
+        "projectPath": "/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/API.csproj",
         "packagesPath": "/Users/mqumairi/.nuget/packages/",
-        "outputPath": "/Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/",
+        "outputPath": "/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/mqumairi/.nuget/NuGet/NuGet.Config"

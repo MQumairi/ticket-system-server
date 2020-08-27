@@ -23,7 +23,12 @@ namespace API.Handlers.Archives
             public async Task<List<Ticket>> Handle(Query request, CancellationToken cancellationToken)
             {
                 //Handler logic goes here
-                var archived_tickets = await context.tickets.Where(ticket => ticket.is_archived).ToListAsync();
+                var archived_tickets = await context.tickets
+                                                        .Include(ticket => ticket.product)
+                                                        .Include(ticket => ticket.status)
+                                                        .Include(ticket => ticket.author)
+                                                            .ThenInclude(user => user.avatar)
+                                                        .Where(ticket => ticket.is_archived).ToListAsync();
 
                 return archived_tickets;
             }

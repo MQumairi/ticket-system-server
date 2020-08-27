@@ -67,3 +67,141 @@
 /Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/AutoMapper.dll
 /Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 /Users/mqumairi/Documents/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/CloudinaryDotNet.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/appsettings.Development.json
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/appsettings.json
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/API.StaticWebAssets.xml
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/API.deps.json
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/API.runtimeconfig.json
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/API.runtimeconfig.dev.json
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/API.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/API.pdb
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/AutoMapper.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/CloudinaryDotNet.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/MediatR.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/MediatR.Extensions.Microsoft.DependencyInjection.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.Views.V3.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.JsonPatch.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Bcl.AsyncInterfaces.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Bcl.HashCode.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Design.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Caching.Memory.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.DependencyInjection.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Embedded.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Identity.Core.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Identity.Stores.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Options.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Primitives.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Logging.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Protocols.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Newtonsoft.Json.Bson.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Npgsql.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/System.Collections.Immutable.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/System.Diagnostics.DiagnosticSource.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.csprojAssemblyReference.cache
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.AssemblyInfoInputs.cache
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.AssemblyInfo.cs
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.csproj.CoreCompileInputs.cache
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.MvcApplicationPartsAssemblyInfo.cs
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.MvcApplicationPartsAssemblyInfo.cache
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.RazorTargetAssemblyInfo.cache
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.csproj.CopyComplete
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/staticwebassets/API.StaticWebAssets.Manifest.cache
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/staticwebassets/API.StaticWebAssets.xml
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.dll
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.pdb
+/Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.genruntimeconfig.cache
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/appsettings.Development.json
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/appsettings.json
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.StaticWebAssets.xml
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.deps.json
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.runtimeconfig.json
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.runtimeconfig.dev.json
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.pdb
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/AutoMapper.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/AutoMapper.Extensions.Microsoft.DependencyInjection.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/CloudinaryDotNet.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/MediatR.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/MediatR.Extensions.Microsoft.DependencyInjection.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Authentication.JwtBearer.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.Internal.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.EntityFrameworkCore.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.Views.V3.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.Views.V4.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Identity.UI.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.JsonPatch.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Bcl.AsyncInterfaces.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Bcl.HashCode.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Abstractions.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Design.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.EntityFrameworkCore.Relational.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Caching.Abstractions.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Caching.Memory.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.DependencyInjection.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Embedded.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Identity.Core.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Identity.Stores.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Abstractions.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Options.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Primitives.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.JsonWebTokens.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Logging.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Protocols.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Newtonsoft.Json.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Newtonsoft.Json.Bson.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Npgsql.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Npgsql.EntityFrameworkCore.PostgreSQL.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/System.Collections.Immutable.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/System.Diagnostics.DiagnosticSource.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.csprojAssemblyReference.cache
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.AssemblyInfoInputs.cache
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.AssemblyInfo.cs
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.csproj.CoreCompileInputs.cache
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.MvcApplicationPartsAssemblyInfo.cs
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.MvcApplicationPartsAssemblyInfo.cache
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.RazorTargetAssemblyInfo.cache
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.csproj.CopyComplete
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/staticwebassets/API.StaticWebAssets.Manifest.cache
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/staticwebassets/API.StaticWebAssets.xml
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.dll
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.pdb
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.genruntimeconfig.cache
