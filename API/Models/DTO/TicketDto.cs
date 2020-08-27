@@ -12,8 +12,7 @@ namespace API.Models.DTO
 
         public string description { get; set; }
 
-        [JsonPropertyName("author")]
-        public UserDto user { get; set; }
+        public UserDto author { get; set; }
 
         public string title { get; set; }
 

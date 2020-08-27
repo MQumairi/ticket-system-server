@@ -16,10 +16,11 @@ namespace API.Models
         public string description { get; set; }
 
         //Relationshop with User entity 
-        public User user { get; set; }
+        [Column("author")]
+        public User author { get; set; }
 
         [Required]
-        [ForeignKey("user")]
+        [ForeignKey("author")]
         public string author_id { get; set; }
 
 

@@ -1,6 +1,8 @@
 using System;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using API.Infrastructure.Errors;
 using API.Infrastructure.Security;
 using API.Models;
 using MediatR;
@@ -39,6 +41,8 @@ namespace API.Handlers.Users
 
                 //Get current user 
                 var user = await userManager.FindByEmailAsync(userAccessor.getCurrentUsername());
+
+                if(user == null) throw new RestException(HttpStatusCode.NotFound, new {user = "Not found"});
 
                 //Change fields
                 if (request.first_name != null || request.surname != null)

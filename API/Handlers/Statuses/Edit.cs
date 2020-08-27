@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace API.Handlers.Statuses
             public int status_id { get; set; }
             public string status_text { get; set; }
             public string status_color { get; set; }
+            public bool is_default { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -30,11 +32,19 @@ namespace API.Handlers.Statuses
             {
                 Status status = await context.status.FindAsync(request.status_id);
 
-                if(status == null) throw new RestException(HttpStatusCode.NotFound, new {status = "Not found"});
+                if (status == null) throw new RestException(HttpStatusCode.NotFound, new { status = "Not found" });
 
                 status.status_text = request.status_text ?? status.status_text;
                 status.status_color = request.status_color ?? status.status_color;
-                
+
+                //If setting to default
+                if (request.is_default)
+                {
+                    var current_default = context.status.Where(status => status.is_default == true).FirstOrDefault();
+                    if (current_default != null) current_default.is_default = false;
+                    status.is_default = request.is_default;
+                }
+
                 //Handler logic
                 var success = await context.SaveChangesAsync() > 0;
                 if (success) return Unit.Value;

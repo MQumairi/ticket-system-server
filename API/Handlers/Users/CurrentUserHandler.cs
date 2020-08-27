@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using API.Infrastructure.Security;
@@ -36,14 +37,17 @@ namespace API.Handlers.Users
                 var fetched_avatar = await context.profile_pics.FindAsync(user.avatar_id);
                 var avatar_to_return = mapper.Map<Avatar, AvatarDto>(fetched_avatar);
 
+                var userRoles = await userManager.GetRolesAsync(user) as List<string>;
+
                 return new CurrentUser
                 {
-                    user_id = user.Id,
+                    id = user.Id,
                     username = user.UserName,
                     avatar = avatar_to_return,
                     email = user.Email,
                     first_name = user.first_name,
                     surname = user.surname,
+                    roles = userRoles
                 };
             }
         }

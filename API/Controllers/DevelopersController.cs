@@ -22,7 +22,7 @@ namespace API.Controllers
 
         // GET api/values
         [HttpGet]
-        public async Task<ActionResult<List<User>>> List()
+        public async Task<ActionResult<List<UserDto>>> List()
         {
             return await mediator.Send(new List.Query());
         }
