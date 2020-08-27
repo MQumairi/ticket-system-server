@@ -54,6 +54,13 @@ namespace API.Controllers
             return await mediator.Send(new Delete.Command { post_id = id });
         }
 
+        //Filter tickets
+        [HttpGet("filter")]
+        public async Task<ActionResult<List<TicketDto>>> Filter(FilterTickets.Query query)
+        {
+            return await mediator.Send(query);
+        }
+
         //Developer stuff
         [Authorize(Roles = "Admin,Developer")]
         [HttpPut("{id}/assign")]
