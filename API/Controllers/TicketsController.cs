@@ -55,7 +55,7 @@ namespace API.Controllers
         }
 
         //Filter tickets
-        [HttpGet("filter")]
+        [HttpPost("filter")]
         public async Task<ActionResult<List<TicketDto>>> Filter(FilterTickets.Query query)
         {
             return await mediator.Send(query);
