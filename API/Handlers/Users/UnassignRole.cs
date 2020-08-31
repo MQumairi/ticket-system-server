@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -6,6 +8,7 @@ using API.Infrastructure.Errors;
 using API.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Handlers.Users
 {
@@ -34,6 +37,23 @@ namespace API.Handlers.Users
 
                 if (user == null) throw new RestException(HttpStatusCode.NotFound, new { user = "Not found" });
 
+                //If the user is a developer, unassign them from all tickets
+                var usersRole = await userManager.GetRolesAsync(user) as List<string>;
+
+                if(usersRole.Contains("Developer")) {
+                    var assignedTickets = await context.tickets.Where((ticket) => ticket.developer_id == user.Id).ToListAsync();
+                    
+                    foreach (var ticket in assignedTickets)
+                    {
+                        ticket.developer_id = null;
+                    }
+
+                    var contextSuccess = await context.SaveChangesAsync() > 0;
+
+                    if(!contextSuccess) throw new RestException(HttpStatusCode.BadRequest, new {tickets = "Error unassigning tickets from Developer"});
+                }
+
+                //Perform the unassignment
                 var unassignment = await userManager.RemoveFromRoleAsync(user, request.role_name);
 
                 //Handler logic
