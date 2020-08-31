@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using API.Handlers.Roles;
 using API.Models;
+using API.Models.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Role>> Details(string id)
+        public async Task<ActionResult<RoleDto>> Details(string id)
         {
             return await mediator.Send(new Details.Query { role_id = id });
         }

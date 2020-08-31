@@ -37,6 +37,9 @@ namespace API.Handlers.Statuses
                 status.status_text = request.status_text ?? status.status_text;
                 status.status_color = request.status_color ?? status.status_color;
 
+                //If the chosen status is already default, don't allow it to change to regular
+                if(status.is_default && (!request.is_default)) throw new RestException(HttpStatusCode.BadRequest, new {status = "Status is already default status!"});
+
                 //If setting to default
                 if (request.is_default)
                 {

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace API.Models.DTO
@@ -10,6 +11,8 @@ namespace API.Models.DTO
         [JsonPropertyName("name")]
         public string Name { get; set; }
         public string color { get; set; }
+        public List<UserDto> roleUsers { get; set; }
+        public List<UserDto> userList {get; set;}
 
     }
 }
