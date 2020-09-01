@@ -34,8 +34,10 @@ namespace API.Handlers.Tickets
             private readonly PhotoAccessor photoAccessor;
             private readonly UserManager<User> userManager;
             private readonly UserAccessor userAccessor;
-            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor, UserManager<User> userManager, UserAccessor userAccessor)
+            private readonly RoleManager<Role> roleManager;
+            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor, UserManager<User> userManager, RoleManager<Role> roleManager, UserAccessor userAccessor)
             {
+                this.roleManager = roleManager;
                 this.userAccessor = userAccessor;
                 this.userManager = userManager;
                 this.photoAccessor = photoAccessor;
@@ -44,6 +46,20 @@ namespace API.Handlers.Tickets
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
+                var current_user = await userManager.FindByEmailAsync(userAccessor.getCurrentUsername());
+
+                var current_user_role_list = await userManager.GetRolesAsync(current_user);
+
+                Role current_user_role = null;
+
+                if (current_user_role_list.Count > 0)
+                {
+                    var current_user_role_string = current_user_role_list[0];
+                    current_user_role = await roleManager.FindByNameAsync(current_user_role_string);
+                }
+
+                if (current_user_role == null || !current_user_role.can_manage) throw new RestException(HttpStatusCode.Forbidden, new { error = "You don't have the permission to do this" });
+
                 //Get the ticket
                 Ticket ticket = await context.tickets.Include(ticket => ticket.developer).FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
                 if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
@@ -60,10 +76,18 @@ namespace API.Handlers.Tickets
 
                     if (requested_dev == null) throw new RestException(HttpStatusCode.NotFound, new { dev = "Not found" });
 
-                    var requested_dev_roles = await userManager.GetRolesAsync(requested_dev) as List<string>;
+                    var requested_dev_roles_list = await userManager.GetRolesAsync(requested_dev);
 
-                    //If the requested_dev is neither a dev nor an admin throw exception
-                    if (!requested_dev_roles.Contains("Developer") && requested_dev_roles.Contains("Admin")) throw new RestException(HttpStatusCode.Forbidden, new { user = "This user cannot be assigned the ticket!" });
+                    Role requested_dev_role = null;
+
+                    if (requested_dev_roles_list.Count > 0)
+                    {
+                        var requested_dev_role_string = requested_dev_roles_list[0];
+                        requested_dev_role = await roleManager.FindByNameAsync(requested_dev_role_string);
+                    }
+
+                    //If the requested_dev has no role, or has a role, but that role doesn't have managing permissions, throw exception
+                    if (requested_dev_role == null || !requested_dev_role.can_manage) throw new RestException(HttpStatusCode.Forbidden, new { user = "This user cannot be assigned the ticket!" });
 
                     //Else, assign the ticket's dev to equal that dev
                     ticket.developer = requested_dev;

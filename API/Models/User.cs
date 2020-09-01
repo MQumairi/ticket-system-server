@@ -16,10 +16,13 @@ namespace API.Models
         //Relationship with Post entity
         public List<Post> posts { get; set; }
 
-        //Relationship with ProfilePic entity
+        //Relationship with Avatar entity
         public Avatar avatar { get; set; }
 
         [ForeignKey("avatar")]
         public string avatar_id { get; set; }
+
+        //Relationship with ACPSettins
+        public ACPSettings acpSettings { get; set; }
     }
 }

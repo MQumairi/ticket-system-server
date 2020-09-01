@@ -38,8 +38,10 @@ namespace API.Handlers.Tickets
             private readonly PhotoAccessor photoAccessor;
             private readonly UserManager<User> userManager;
             private readonly UserAccessor userAccessor;
-            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor, UserManager<User> userManager, UserAccessor userAccessor)
+            private readonly RoleManager<Role> roleManager;
+            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor, UserManager<User> userManager, RoleManager<Role> roleManager, UserAccessor userAccessor)
             {
+                this.roleManager = roleManager;
                 this.userAccessor = userAccessor;
                 this.userManager = userManager;
                 this.photoAccessor = photoAccessor;
@@ -50,12 +52,20 @@ namespace API.Handlers.Tickets
             {
                 //Get current user
                 var current_user = await userManager.FindByEmailAsync(userAccessor.getCurrentUsername());
-                var current_user_roles = await userManager.GetRolesAsync(current_user) as List<string>;
+
+                var current_user_role_list = await userManager.GetRolesAsync(current_user);
+
+                Role current_user_role = null;
+
+                if(current_user_role_list.Count > 0) {
+                   var current_user_role_string = current_user_role_list[0];
+                   current_user_role = await roleManager.FindByNameAsync(current_user_role_string);
+                }
 
                 Ticket ticket = await context.tickets.FindAsync(request.post_id);
                 if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
 
-                if(!(current_user.Id == ticket.author_id || current_user_roles.Contains("Admin"))) throw new RestException(HttpStatusCode.Forbidden, new {user = "You don't have the permission to do this"});
+                if (!(current_user.Id == ticket.author_id || (current_user_role != null && current_user_role.can_moderate))) throw new RestException(HttpStatusCode.Forbidden, new { user = "You don't have the permission to do this" });
 
                 ticket.description = request.description ?? ticket.description;
                 ticket.title = request.title ?? ticket.title;

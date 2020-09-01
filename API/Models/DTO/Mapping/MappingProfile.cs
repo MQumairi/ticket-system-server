@@ -14,6 +14,7 @@ namespace API.Models.DTO.Mapping
             CreateMap<Attachment, AttachmentDto>();
             CreateMap<Comment, CommentDto>();
             CreateMap<Role, RoleDto>();
+            CreateMap<ACPSettings, ACPSettingsDto>();
         }
     }
 }

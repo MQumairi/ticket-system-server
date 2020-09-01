@@ -7,6 +7,7 @@ using API.Infrastructure.Errors;
 using API.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 namespace API.Handlers.Users
 {
@@ -35,6 +36,13 @@ namespace API.Handlers.Users
                 var user = await context.Users.FindAsync(request.user_id);
 
                 if (user == null) throw new RestException(HttpStatusCode.NotFound, new { user = "Not found" });
+
+                //If the user is the founder account, throw exception
+                var acp_settings = (await context.acp_settings.ToListAsync())[0];
+
+                var founder_account_id = acp_settings.founder_id;
+
+                if(user.Id == founder_account_id) throw new RestException(HttpStatusCode.Forbidden, new {user = "Cannot demote the founder"});
 
                 //Reset roles 
                 var current_roles = await userManager.GetRolesAsync(user) as IEnumerable<string>;

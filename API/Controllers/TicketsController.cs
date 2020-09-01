@@ -23,12 +23,14 @@ namespace API.Controllers
         }
 
         // GET api/tickets
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<TicketDto>>> List()
         {
             return await mediator.Send(new List.Query());
         }
 
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<ActionResult<TicketDto>> Details(int id)
         {
@@ -55,6 +57,7 @@ namespace API.Controllers
         }
 
         //Filter tickets
+        [AllowAnonymous]
         [HttpPost("filter")]
         public async Task<ActionResult<List<TicketDto>>> Filter(FilterTickets.Query query)
         {
@@ -84,7 +87,6 @@ namespace API.Controllers
             return await mediator.Send(command);
         }
 
-        [Authorize(Roles = "Admin,Developer")]
         [HttpPut("{id}/manage")]
         public async Task<ActionResult<Unit>> Manage(int id, Manage.Command command)
         {

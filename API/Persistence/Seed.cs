@@ -69,6 +69,16 @@ namespace API.Persistence
                 {
                     await userManager.CreateAsync(user, "Pa$$w0rd");
                 }
+
+
+                if(!context.acp_settings.Any()) {
+                    ACPSettings aCPSettings = new ACPSettings {
+                        founder = adminAccount,
+                        founder_id = adminAccount.Id,
+                        registration_locked = false
+                    };
+                    context.acp_settings.Add(aCPSettings);
+                }
             }
             else
             {

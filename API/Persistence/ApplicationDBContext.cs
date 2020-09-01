@@ -25,6 +25,10 @@ public class ApplicationDBContext : IdentityDbContext<User>
     //Role
     public DbSet<Role> roles {get; set;}
 
+
+    //App settings
+    public DbSet<ACPSettings> acp_settings {get; set;}
+    
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);

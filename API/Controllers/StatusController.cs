@@ -19,6 +19,7 @@ namespace API.Controllers
             this.mediator = mediator;
         }
 
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<StatusDto>>> List()
         {

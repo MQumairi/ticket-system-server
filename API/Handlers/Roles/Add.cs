@@ -14,6 +14,8 @@ namespace API.Handlers.Roles
             //Properties
             public string role_name { get; set; }
             public string role_color { get; set; }
+            public bool can_manage { get; set; }
+            public bool can_moderate { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -30,7 +32,9 @@ namespace API.Handlers.Roles
                 var role = new Role
                 {
                     Name = request.role_name,
-                    color = request.role_color
+                    color = request.role_color,
+                    can_manage = request.can_manage,
+                    can_moderate = request.can_moderate
                 };
 
                 var roleAddition = await roleManager.CreateAsync(role);
