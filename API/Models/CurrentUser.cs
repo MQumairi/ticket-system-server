@@ -12,6 +12,6 @@ namespace API.Models
         public string surname {get; set;}
         public string token { get; set; }
         public AvatarDto avatar {get; set;}
-        public List<string> roles { get; set; }
+        public RoleDto role { get; set; }
     }
 }

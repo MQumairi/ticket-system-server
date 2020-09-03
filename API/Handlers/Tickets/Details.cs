@@ -25,8 +25,10 @@ namespace API.Handlers.Tickets
             private readonly ApplicationDBContext context;
             private readonly IMapper mapper;
             private readonly UserManager<User> userManager;
-            public Handler(ApplicationDBContext context, IMapper mapper, UserManager<User> userManager)
+            private readonly RoleManager<Role> roleManager;
+            public Handler(ApplicationDBContext context, IMapper mapper, UserManager<User> userManager, RoleManager<Role> roleManager)
             {
+                this.roleManager = roleManager;
                 this.userManager = userManager;
                 this.mapper = mapper;
                 this.context = context;
@@ -34,6 +36,7 @@ namespace API.Handlers.Tickets
 
             public async Task<TicketDto> Handle(Query request, CancellationToken cancellationToken)
             {
+                //Get the ticket, plus all relevant data
                 Ticket ticket = await context.tickets
                                             .Include(ticket => ticket.author)
                                                 .ThenInclude(user => user.avatar)
@@ -48,21 +51,35 @@ namespace API.Handlers.Tickets
                                             .Include(ticket => ticket.comments)
                                                 .ThenInclude(comment => comment.attachment)
                                             .FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
+
+                //If the ticket doesn't exist, throw 404
                 if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
 
-                var authorRoles = await userManager.GetRolesAsync(ticket.author) as List<string>;
-
-                var developerRoles = new List<string>();
-                if(ticket.developer != null) developerRoles = await userManager.GetRolesAsync(ticket.developer) as List<string>;
-
+                //Map ticket
                 var ticketToReturn = mapper.Map<Ticket, TicketDto>(ticket);
 
-                ticketToReturn.author.Roles = authorRoles;
-                if(ticket.developer != null) ticketToReturn.developer.Roles = developerRoles;
+                //Get the role of the author, assidn it to the maped ticket
+                var authorRoleList = await userManager.GetRolesAsync(ticket.author);
 
-                for(int i = 0; i < ticket.comments.Count; i++) {
-                    var commentAuthorRoles = await userManager.GetRolesAsync(ticket.comments[i].author) as List<string>;
-                    ticketToReturn.comments[i].author.Roles = commentAuthorRoles;
+                if (authorRoleList.Count > 0)
+                {
+                    var authorRoleString = authorRoleList[0];
+                    var authorRole = await roleManager.FindByNameAsync(authorRoleString);
+                    var authorRoleDto = mapper.Map<Role, RoleDto>(authorRole);
+                    ticketToReturn.author.role = authorRoleDto;
+                }
+
+                for (int i = 0; i < ticket.comments.Count; i++)
+                {
+                    var commentAuthorRoleList = await userManager.GetRolesAsync(ticket.comments[i].author);
+
+                    if (commentAuthorRoleList.Count > 0)
+                    {
+                        var commentAuthorRoleString = commentAuthorRoleList[0];
+                        var commentAuthorRole = await roleManager.FindByNameAsync(commentAuthorRoleString);
+                        var commentAuthorRoleDto = mapper.Map<Role, RoleDto>(commentAuthorRole);
+                        ticketToReturn.comments[i].author.role = commentAuthorRoleDto;
+                    }
                 }
 
                 return ticketToReturn;

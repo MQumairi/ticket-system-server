@@ -26,8 +26,10 @@ namespace API.Handlers.Comments
             private readonly PhotoAccessor photoAccessor;
             private readonly UserManager<User> userManager;
             private readonly UserAccessor userAccessor;
-            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor, UserManager<User> userManager, UserAccessor userAccessor)
+            private readonly RoleManager<Role> roleManager;
+            public Handler(ApplicationDBContext context, PhotoAccessor photoAccessor, UserManager<User> userManager, RoleManager<Role> roleManager, UserAccessor userAccessor)
             {
+                this.roleManager = roleManager;
                 this.userAccessor = userAccessor;
                 this.userManager = userManager;
                 this.photoAccessor = photoAccessor;
@@ -38,13 +40,21 @@ namespace API.Handlers.Comments
             {
                 //Get current user
                 var current_user = await userManager.FindByEmailAsync(userAccessor.getCurrentUsername());
-                var current_user_roles = await userManager.GetRolesAsync(current_user) as List<string>;
+
+                var current_user_roles_list = await userManager.GetRolesAsync(current_user);
+
+                Role current_user_role = null;
+
+                if (current_user_roles_list.Count > 0)
+                {
+                    current_user_role = await roleManager.FindByNameAsync(current_user_roles_list[0]);
+                }
 
                 //Find the comment
                 Comment comment = await context.comments.FindAsync(request.post_id);
                 if (comment == null) throw new RestException(HttpStatusCode.NotFound, new { comment = "Not found" });
-                
-                if(!(current_user.Id == comment.author_id || current_user_roles.Contains("Admin"))) throw new RestException(HttpStatusCode.Forbidden, new {user = "You don't have the permission to do this"});
+
+                if (!(current_user.Id == comment.author_id || (current_user_role != null && current_user_role.can_moderate))) throw new RestException(HttpStatusCode.Forbidden, new { user = "You don't have the permission to do this" });
 
                 if (comment.attachment_id != null)
                 {

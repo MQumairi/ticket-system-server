@@ -36,6 +36,7 @@ namespace API.Handlers.Users
 
                 var userRoles = await userManager.GetRolesAsync(user) as List<string>;
                 if(userRoles.Contains("Admin")) throw new RestException(HttpStatusCode.Forbidden, new {user = "Cannot delete admin accounts!"});
+                if(userRoles.Contains("Developer")) throw new RestException(HttpStatusCode.Forbidden, new {user = "Cannot delete developer accounts!"});
 
                 var deletion = await userManager.DeleteAsync(user);
 

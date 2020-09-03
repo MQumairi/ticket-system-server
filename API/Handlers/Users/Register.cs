@@ -37,10 +37,14 @@ namespace API.Handlers.Users
             public async Task<CurrentUser> Handle(Command request, CancellationToken cancellationToken)
             {
                 if ((await context.Users.AnyAsync(x => x.Email == request.email)))
-                    throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email already exists" });
+                    throw new RestException(HttpStatusCode.BadRequest, new { Email = "Email already exists. Try registering with another one." });
 
                 if ((await context.Users.AnyAsync(x => x.UserName == request.username)))
-                    throw new RestException(HttpStatusCode.BadRequest, new { Username = "Username already exists" });
+                    throw new RestException(HttpStatusCode.BadRequest, new { Username = "Username already exists. Try registering with another one" });
+                
+                if((await context.acp_settings.ToListAsync())[0].registration_locked) {
+                    throw new RestException(HttpStatusCode.BadRequest, new { Locked = "Registration is currently locked to protect the site from spammers. Browse as guest." });
+                }
 
                 User userToRegister = new User
                 {

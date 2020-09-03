@@ -12,7 +12,7 @@ namespace API.Models.DTO
         public string surname { get; set; }
         public AvatarDto avatar { get; set; }
 
-        [JsonPropertyName("roles")]
-        public List<string> Roles {get; set; }
+        [JsonPropertyName("role")]
+        public RoleDto role {get; set; }
     }
 }

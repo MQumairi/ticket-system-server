@@ -17,6 +17,8 @@ namespace API.Handlers.Roles
             public string role_id { get; set; }
             public string role_name { get; set; }
             public string role_color { get; set; }
+            public bool can_manage { get; set; }
+            public bool can_moderate { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -36,6 +38,10 @@ namespace API.Handlers.Roles
                 if (role == null) throw new RestException(HttpStatusCode.NotFound, new { role = "Not Found" });
 
                 role.color = request.role_color ?? role.color;
+
+                role.can_manage = request.can_manage;
+
+                role.can_moderate = request.can_moderate;
 
                 if (request.role_name != null)
                 {

@@ -21,6 +21,7 @@ namespace API.Controllers
         }
 
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public async Task<ActionResult<List<Ticket>>> List()
         {

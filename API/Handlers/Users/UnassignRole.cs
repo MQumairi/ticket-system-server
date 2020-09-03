@@ -37,6 +37,13 @@ namespace API.Handlers.Users
 
                 if (user == null) throw new RestException(HttpStatusCode.NotFound, new { user = "Not found" });
 
+                //If the user is the founder account, throw exception
+                var acp_settings = (await context.acp_settings.ToListAsync())[0];
+
+                var founder_account_id = acp_settings.founder_id;
+
+                if(user.Id == founder_account_id) throw new RestException(HttpStatusCode.Forbidden, new {user = "Cannot demote the founder"});
+
                 //If the user is a developer, unassign them from all tickets
                 var usersRole = await userManager.GetRolesAsync(user) as List<string>;
 

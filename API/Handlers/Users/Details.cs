@@ -25,8 +25,10 @@ namespace API.Handlers.Users
             private readonly ApplicationDBContext context;
             private readonly IMapper mapper;
             private readonly UserManager<User> userManager;
-            public Handler(ApplicationDBContext context, IMapper mapper, UserManager<User> userManager)
+            private readonly RoleManager<Role> roleManager;
+            public Handler(ApplicationDBContext context, IMapper mapper, UserManager<User> userManager, RoleManager<Role> roleManager)
             {
+                this.roleManager = roleManager;
                 this.userManager = userManager;
                 this.mapper = mapper;
                 this.context = context;
@@ -39,10 +41,17 @@ namespace API.Handlers.Users
 
                 if (user == null) throw new RestException(HttpStatusCode.NotFound, new { user = "Not found" });
 
-                var userRoles = await userManager.GetRolesAsync(user) as List<string>;
-
                 var user_dto = mapper.Map<User, UserDto>(user);
-                user_dto.Roles = userRoles;
+
+                var userRoleList = await userManager.GetRolesAsync(user);
+
+                if (userRoleList.Count > 0)
+                {
+                    var userRoleString = userRoleList[0];
+                    var userRole = await roleManager.FindByNameAsync(userRoleString);
+                    var userRoleDto = mapper.Map<Role, RoleDto>(userRole);
+                    user_dto.role = userRoleDto;
+                }
 
                 return user_dto;
             }

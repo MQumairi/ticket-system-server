@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using API.Infrastructure.Errors;
 using API.Models;
 using MediatR;
 using Microsoft.AspNetCore.Identity;
@@ -31,9 +34,15 @@ namespace API.Handlers.Users
 
             public async Task<Unit> Handle(Command request, CancellationToken cancellationToken)
             {
-                //Handler logic
-                //Get current user 
+                //Get user 
                 var user = await userManager.FindByIdAsync(request.user_id);
+
+                //If the user does not exist, throw an exception
+                if(user == null) throw new RestException(HttpStatusCode.NotFound, new {user = "Not found"});
+
+                //If the user is an admin, throw an exception
+                var userRoles = await userManager.GetRolesAsync(user) as List<string>;
+                if(userRoles.Contains("Admin")) throw new RestException(HttpStatusCode.Forbidden, new {user = "Cannot edit admin accounts!"});
 
                 //Change fields
                 if (request.first_name != null || request.surname != null)

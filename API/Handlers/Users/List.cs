@@ -19,8 +19,10 @@ namespace API.Handlers.Users
             private readonly ApplicationDBContext context;
             private readonly IMapper mapper;
             private readonly UserManager<User> userManager;
-            public Handler(ApplicationDBContext context, IMapper mapper, UserManager<User> userManager)
+            private readonly RoleManager<Role> roleManager;
+            public Handler(ApplicationDBContext context, IMapper mapper, UserManager<User> userManager, RoleManager<Role> roleManager)
             {
+                this.roleManager = roleManager;
                 this.userManager = userManager;
                 this.mapper = mapper;
                 this.context = context;
@@ -37,9 +39,17 @@ namespace API.Handlers.Users
 
                 foreach (var user in users)
                 {
-                    var user_roles = await userManager.GetRolesAsync(user) as List<string>;
                     var user_dto = mapper.Map<User, UserDto>(user);
-                    user_dto.Roles = user_roles;
+
+                    var user_roles_string = await userManager.GetRolesAsync(user);
+
+                    if (user_roles_string.Count > 0)
+                    {
+                        var user_role_string = user_roles_string[0];
+                        var user_role = await roleManager.FindByNameAsync(user_role_string);
+                        var user_role_dto = mapper.Map<Role, RoleDto>(user_role);
+                        user_dto.role = user_role_dto;
+                    }
                     users_dto.Add(user_dto);
                 }
 

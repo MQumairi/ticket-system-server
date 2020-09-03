@@ -21,8 +21,10 @@ namespace API.Handlers.Users
             private readonly JWTGenerator jWTGenerator;
             private readonly UserAccessor userAccessor;
             private readonly IMapper mapper;
-            public Handler(ApplicationDBContext context, UserManager<User> userManager, JWTGenerator jWTGenerator, UserAccessor userAccessor, IMapper mapper)
+            private readonly RoleManager<Role> roleManager;
+            public Handler(ApplicationDBContext context, UserManager<User> userManager, RoleManager<Role> roleManager, JWTGenerator jWTGenerator, UserAccessor userAccessor, IMapper mapper)
             {
+                this.roleManager = roleManager;
                 this.mapper = mapper;
                 this.userAccessor = userAccessor;
                 this.jWTGenerator = jWTGenerator;
@@ -37,7 +39,16 @@ namespace API.Handlers.Users
                 var fetched_avatar = await context.profile_pics.FindAsync(user.avatar_id);
                 var avatar_to_return = mapper.Map<Avatar, AvatarDto>(fetched_avatar);
 
-                var userRoles = await userManager.GetRolesAsync(user) as List<string>;
+                var userRoleList = await userManager.GetRolesAsync(user);
+
+                RoleDto roleDto = null;
+
+                if (userRoleList.Count > 0)
+                {
+                    var userRole = userRoleList[0];
+                    var role = await roleManager.FindByNameAsync(userRole);
+                    roleDto = mapper.Map<Role, RoleDto>(role);
+                }
 
                 return new CurrentUser
                 {
@@ -47,7 +58,7 @@ namespace API.Handlers.Users
                     email = user.Email,
                     first_name = user.first_name,
                     surname = user.surname,
-                    roles = userRoles
+                    role = roleDto
                 };
             }
         }

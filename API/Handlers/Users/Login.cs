@@ -29,8 +29,10 @@ namespace API.Handlers.Users
             private readonly JWTGenerator jWTGenerator;
             private readonly ApplicationDBContext context;
             private readonly IMapper mapper;
-            public Handler(ApplicationDBContext context, UserManager<User> userManager, SignInManager<User> signInManager, JWTGenerator jWTGenerator, IMapper mapper)
+            private readonly RoleManager<Role> roleManager;
+            public Handler(ApplicationDBContext context, UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, JWTGenerator jWTGenerator, IMapper mapper)
             {
+                this.roleManager = roleManager;
                 this.mapper = mapper;
                 this.context = context;
                 this.jWTGenerator = jWTGenerator;
@@ -50,7 +52,16 @@ namespace API.Handlers.Users
 
                 var avatar_to_return = mapper.Map<Avatar, AvatarDto>(fetched_avatar);
 
-                var userRoles = await userManager.GetRolesAsync(user) as List<string>;
+                var userRoleList = await userManager.GetRolesAsync(user);
+
+                RoleDto roleDto = null;
+
+                if (userRoleList.Count > 0)
+                {
+                    var userRole = userRoleList[0];
+                    var role = await roleManager.FindByNameAsync(userRole);
+                    roleDto = mapper.Map<Role, RoleDto>(role);
+                }
 
 
                 if (result.Succeeded)
@@ -65,7 +76,7 @@ namespace API.Handlers.Users
                         surname = user.surname,
                         avatar = avatar_to_return,
                         token = await jWTGenerator.CreateToken(user),
-                        roles = userRoles
+                        role = roleDto
                     };
 
                     return currentUser;
