@@ -64,6 +64,14 @@ namespace API.Controllers
             return await mediator.Send(query);
         }
 
+        //Search tickets
+        [AllowAnonymous]
+        [HttpPost("search")]
+        public async Task<ActionResult<List<TicketDto>>> Search(SearchTickets.Query query)
+        {
+            return await mediator.Send(query);
+        }
+
         //Developer stuff
         [Authorize(Roles = "Admin,Developer")]
         [HttpPut("{id}/assign")]
