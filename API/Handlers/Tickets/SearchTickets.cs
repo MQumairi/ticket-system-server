@@ -34,6 +34,7 @@ namespace API.Handlers.Tickets
                                         .Include(ticket => ticket.status)
                                         .Include(ticket => ticket.product)
                                         .Include(ticket => ticket.author)
+                                            .ThenInclude(user => user.avatar)
                                         .Where(ticket =>
                                             ticket.title.Contains(request.search_query) ||
                                             ticket.description.Contains(request.search_query) ||
