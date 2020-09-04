@@ -25,9 +25,9 @@ namespace API.Controllers
         // GET api/tickets
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<List<TicketDto>>> List()
+        public async Task<ActionResult<List.TicketEnvelop>> List(int? offset, int? limit)
         {
-            return await mediator.Send(new List.Query());
+            return await mediator.Send(new List.Query(offset, limit));
         }
 
         [AllowAnonymous]
