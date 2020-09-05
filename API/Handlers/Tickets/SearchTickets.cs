@@ -36,11 +36,12 @@ namespace API.Handlers.Tickets
                                         .Include(ticket => ticket.author)
                                             .ThenInclude(user => user.avatar)
                                         .Where(ticket =>
-                                            ticket.title.Contains(request.search_query) ||
+                                            (ticket.title.Contains(request.search_query) ||
                                             ticket.description.Contains(request.search_query) ||
                                             ticket.status.status_text.Contains(request.search_query) ||
                                             ticket.product.product_name.Contains(request.search_query) ||
-                                            ticket.author.UserName.Contains(request.search_query)
+                                            ticket.author.UserName.Contains(request.search_query)) &&
+                                            !ticket.is_archived
                                             )
                                         .ToListAsync();
 
