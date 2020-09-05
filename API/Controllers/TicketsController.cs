@@ -25,9 +25,9 @@ namespace API.Controllers
         // GET api/tickets
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<List<TicketDto>>> List()
+        public async Task<ActionResult<List.TicketEnvelop>> List(int? offset, int? limit)
         {
-            return await mediator.Send(new List.Query());
+            return await mediator.Send(new List.Query(offset, limit));
         }
 
         [AllowAnonymous]
@@ -60,6 +60,14 @@ namespace API.Controllers
         [AllowAnonymous]
         [HttpPost("filter")]
         public async Task<ActionResult<List<TicketDto>>> Filter(FilterTickets.Query query)
+        {
+            return await mediator.Send(query);
+        }
+
+        //Search tickets
+        [AllowAnonymous]
+        [HttpPost("search")]
+        public async Task<ActionResult<List<TicketDto>>> Search(SearchTickets.Query query)
         {
             return await mediator.Send(query);
         }
