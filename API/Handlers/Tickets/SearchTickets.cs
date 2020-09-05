@@ -15,6 +15,8 @@ namespace API.Handlers.Tickets
         public class Query : IRequest<List<TicketDto>>
         {
             public string search_query { get; set; }
+
+            public bool search_archive { get; set; }
         }
 
         public class Handler : IRequestHandler<Query, List<TicketDto>>
@@ -41,7 +43,7 @@ namespace API.Handlers.Tickets
                                             ticket.status.status_text.Contains(request.search_query) ||
                                             ticket.product.product_name.Contains(request.search_query) ||
                                             ticket.author.UserName.Contains(request.search_query)) &&
-                                            !ticket.is_archived
+                                            ticket.is_archived == request.search_archive
                                             )
                                         .ToListAsync();
 
