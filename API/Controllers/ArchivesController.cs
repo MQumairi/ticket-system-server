@@ -23,9 +23,9 @@ namespace API.Controllers
         // GET api/values
         [AllowAnonymous]
         [HttpGet]
-        public async Task<ActionResult<List<Ticket>>> List()
+        public async Task<ActionResult<List.ArchiveEnvelop>> List(int? offset, int? limit)
         {
-            return await mediator.Send(new List.Query());
+            return await mediator.Send(new List.Query(offset, limit));
         }
 
         [Authorize(Roles = "Admin,Developer")]
