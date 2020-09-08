@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using API.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace API
 {
@@ -27,7 +28,8 @@ namespace API
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var roleManager = services.GetRequiredService<RoleManager<Role>>();
                     context.Database.Migrate();
-                    Seed.seedTickets(context, userManager, roleManager).Wait();
+                    Seed seed = new Seed(services.GetRequiredService<IConfiguration>());
+                    seed.seedTickets(context, userManager, roleManager).Wait();
                 }
                 catch (Exception e)
                 {
