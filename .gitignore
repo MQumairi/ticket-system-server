@@ -1,8 +1,13 @@
 # dependencies
+obj
+bin
+*.db
 /obj/Debug
 /bin/Debug
 API/obj/Debug
 API/bin/Debug
+appsettings.json
 
 # misc
 .DS_Store
+wwwroot

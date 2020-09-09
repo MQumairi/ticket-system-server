@@ -33,6 +33,11 @@ public class ApplicationDBContext : IdentityDbContext<User>
     {
         base.OnModelCreating(builder);
 
+        builder.Entity<Ticket>()
+        .HasMany(ticket => ticket.comments)
+        .WithOne(comment => comment.ticket)
+        .OnDelete(DeleteBehavior.NoAction);
+
         builder.Entity<Avatar>()
         .HasOne(avatar => avatar.user)
         .WithOne(user => user.avatar)
