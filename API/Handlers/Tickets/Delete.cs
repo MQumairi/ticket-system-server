@@ -46,21 +46,34 @@ namespace API.Handlers.Tickets
 
                 Role current_user_role = null;
 
-                if(current_user_role_list.Count > 0) {
-                   var current_user_role_string = current_user_role_list[0];
-                   current_user_role = await roleManager.FindByNameAsync(current_user_role_string);
+                if (current_user_role_list.Count > 0)
+                {
+                    var current_user_role_string = current_user_role_list[0];
+                    current_user_role = await roleManager.FindByNameAsync(current_user_role_string);
                 }
 
-                Ticket ticket = await context.tickets.Include(ticket => ticket.attachment).FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
+                Ticket ticket = await context.tickets.Include(ticket => ticket.attachment).Include(ticket => ticket.comments).FirstOrDefaultAsync(ticket => ticket.post_id == request.post_id);
                 if (ticket == null) throw new RestException(HttpStatusCode.NotFound, new { ticket = "Not found." });
 
                 if (!(current_user.Id == ticket.author_id || (current_user_role != null && current_user_role.can_moderate))) throw new RestException(HttpStatusCode.Forbidden, new { user = "You don't have the permission to do this, since your id is " + current_user.Id + ", while the post's id is " + ticket.author_id });
 
                 if (ticket.attachment_id != null)
                 {
+                    //Delete all attachments
                     var attachment = await context.attachments.FindAsync(ticket.attachment_id);
                     photoAccessor.DeletePhoto(attachment.Id);
                     context.attachments.Remove(attachment);
+                }
+
+                if (ticket.comments != null)
+                {
+                    //Delete all comments
+                    var comments = await context.comments.Where(comment => comment.parent_post_id == ticket.post_id).ToListAsync();
+
+                    foreach (var comment in comments)
+                    {
+                        context.comments.Remove(comment);
+                    }
                 }
 
                 context.tickets.Remove(ticket);

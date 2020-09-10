@@ -38,6 +38,11 @@ public class ApplicationDBContext : IdentityDbContext<User>
         .WithOne(comment => comment.ticket)
         .OnDelete(DeleteBehavior.NoAction);
 
+        // builder.Entity<Comment>()
+        // .HasOne(comment => comment.ticket)
+        // .WithMany(ticket => ticket.comments)
+        // .OnDelete(DeleteBehavior.NoAction);
+
         builder.Entity<Avatar>()
         .HasOne(avatar => avatar.user)
         .WithOne(user => user.avatar)

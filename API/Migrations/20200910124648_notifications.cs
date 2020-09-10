@@ -1,9 +1,10 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace API.Migrations
 {
-    public partial class sqlServer : Migration
+    public partial class notifications : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -43,7 +44,7 @@ namespace API.Migrations
                 columns: table => new
                 {
                     product_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     product_name = table.Column<string>(nullable: false),
                     version = table.Column<string>(nullable: true),
                     product_image = table.Column<string>(nullable: true)
@@ -58,7 +59,7 @@ namespace API.Migrations
                 columns: table => new
                 {
                     status_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     status_text = table.Column<string>(nullable: false),
                     status_color = table.Column<string>(nullable: false),
                     is_default = table.Column<bool>(nullable: false)
@@ -73,7 +74,7 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoleId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -110,6 +111,7 @@ namespace API.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     first_name = table.Column<string>(nullable: false),
                     surname = table.Column<string>(nullable: false),
+                    notifications = table.Column<int>(nullable: false),
                     avatar_id = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -128,7 +130,7 @@ namespace API.Migrations
                 columns: table => new
                 {
                     id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     founder_id = table.Column<string>(nullable: false),
                     registration_locked = table.Column<bool>(nullable: false)
                 },
@@ -148,7 +150,7 @@ namespace API.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     UserId = table.Column<string>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -233,7 +235,7 @@ namespace API.Migrations
                 columns: table => new
                 {
                     post_id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     date_time = table.Column<DateTime>(nullable: false),
                     description = table.Column<string>(nullable: false),
                     author_id = table.Column<string>(nullable: false),
@@ -301,8 +303,7 @@ namespace API.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -328,15 +329,13 @@ namespace API.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUsers_avatar_id",
                 table: "AspNetUsers",
                 column: "avatar_id",
-                unique: true,
-                filter: "[avatar_id] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_posts_parent_post_id",
@@ -347,8 +346,7 @@ namespace API.Migrations
                 name: "IX_posts_attachment_id",
                 table: "posts",
                 column: "attachment_id",
-                unique: true,
-                filter: "[attachment_id] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_posts_author_id",

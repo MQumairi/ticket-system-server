@@ -11,8 +11,9 @@ namespace API.Models.DTO
         public string first_name { get; set; }
         public string surname { get; set; }
         public AvatarDto avatar { get; set; }
+        public int notifications { get; set; }
 
         [JsonPropertyName("role")]
-        public RoleDto role {get; set; }
+        public RoleDto role { get; set; }
     }
 }

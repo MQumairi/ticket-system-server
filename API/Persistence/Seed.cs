@@ -55,7 +55,8 @@ namespace API.Persistence
                     UserName = "MQumairi",
                     Email = "moh.alqumairi@gmail.com",
                     first_name = "Mohammed",
-                    surname = "Alqumairi"
+                    surname = "Alqumairi",
+                    notifications = 0
                 };
 
                 usersToAdd.Add(new User
@@ -63,7 +64,9 @@ namespace API.Persistence
                     UserName = "BBob",
                     Email = "Bob@email.com",
                     first_name = "Billy",
-                    surname = "Bob"
+                    surname = "Bob",
+                    notifications = 0
+
                 });
 
                 usersToAdd.Add(new User
@@ -71,7 +74,8 @@ namespace API.Persistence
                     UserName = "ToshiToshi",
                     Email = "Toshi@email.com",
                     first_name = "Toshi",
-                    surname = "Toshi"
+                    surname = "Toshi",
+                    notifications = 0
                 });
 
                 usersToAdd.Add(adminAccount);
@@ -106,12 +110,12 @@ namespace API.Persistence
                 List<Product> productsToAdd = new List<Product>()
                 {
                     new Product{
-                        product_name = "MacOs",
+                        product_name = "Product 1",
                         version = "10.15.5"
                     },
 
                     new Product{
-                        product_name = "iOS",
+                        product_name = "Product 2",
                         version = "14.0.0"
                     }
                 };
@@ -127,19 +131,19 @@ namespace API.Persistence
                 {
                     new Status {
                         status_text = "Urgent",
-                        status_color = "red"
+                        status_color = "#d80000"
                     },
                     new Status {
                         status_text = "Low",
-                        status_color = "orange"
+                        status_color = "#e68a00"
                     },
                     new Status {
                         status_text = "Pending",
-                        status_color = "yellow"
+                        status_color = "#f3cb16"
                     },
                     new Status {
                         status_text = "Done",
-                        status_color = "green",
+                        status_color = "#45B510",
                         is_default = true
                     }
                 };

@@ -15,7 +15,7 @@ namespace API.Models
         public string status_color { get; set; }
 
         [Required]
-        public bool is_default {get; set; } = false;
+        public bool is_default {get; set; }
 
         //Relationship with Ticket entity 
         public List<Ticket> tickets { get; set; }

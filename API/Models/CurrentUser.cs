@@ -13,5 +13,6 @@ namespace API.Models
         public string token { get; set; }
         public AvatarDto avatar {get; set;}
         public RoleDto role { get; set; }
+        public int notifications {get; set;}
     }
 }

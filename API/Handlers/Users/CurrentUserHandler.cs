@@ -58,7 +58,8 @@ namespace API.Handlers.Users
                     email = user.Email,
                     first_name = user.first_name,
                     surname = user.surname,
-                    role = roleDto
+                    role = roleDto,
+                    notifications = user.notifications
                 };
             }
         }

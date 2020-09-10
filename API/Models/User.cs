@@ -13,6 +13,9 @@ namespace API.Models
         [Required]
         public string surname {get; set;}
 
+        [Required]
+        public int notifications {get; set;}
+
         //Relationship with Post entity
         public List<Post> posts { get; set; }
 

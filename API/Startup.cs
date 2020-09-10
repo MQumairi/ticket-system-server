@@ -33,7 +33,7 @@ namespace API
         public void ConfigureDevelopmentServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDBContext>(option =>
-                            option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                            option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
 
             ConfigureServices(services);
         }
