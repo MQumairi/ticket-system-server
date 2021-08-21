@@ -1,4 +1,3 @@
-using System.Security.Claims;
 using System.Text;
 using API.Handlers.Tickets;
 using API.Infrastructure.Images;
@@ -30,6 +29,24 @@ namespace API
 
         public IConfiguration Configuration { get; }
 
+        //Development Configuration
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            services.AddDbContext<ApplicationDBContext>(option =>
+                            option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            ConfigureServices(services);
+        }
+
+        public void ConfigureProductionServices(IServiceCollection services)
+        {
+            services.AddDbContext<ApplicationDBContext>(option =>
+                            option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
+            ConfigureServices(services);
+        }
+
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -38,7 +55,6 @@ namespace API
                 var policy = new AuthorizationPolicyBuilder().RequireAuthenticatedUser().Build();
                 opt.Filters.Add(new AuthorizeFilter(policy));
             });
-            services.AddDbContext<ApplicationDBContext>(option => option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMediatR(typeof(List.Handler).Assembly);
 
             var builder = services.AddIdentityCore<User>();
@@ -94,6 +110,9 @@ namespace API
 
             // app.UseHttpsRedirection();
 
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
             app.UseCors("CorsPolicy");
 
@@ -103,7 +122,15 @@ namespace API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Client");
             });
+
+            // app.UseMvc(routes =>
+            // {
+            //     routes.MapFallbackToController()
+
+            // }
+            // ))
         }
     }
 }

@@ -76,7 +76,8 @@ namespace API.Handlers.Users
                         surname = user.surname,
                         avatar = avatar_to_return,
                         token = await jWTGenerator.CreateToken(user),
-                        role = roleDto
+                        role = roleDto,
+                        notifications = user.notifications
                     };
 
                     return currentUser;

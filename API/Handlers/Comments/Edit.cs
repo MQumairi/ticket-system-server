@@ -22,6 +22,8 @@ namespace API.Handlers.Comments
 
             //If attachmnet is included
             public IFormFile image { get; set; }
+
+            public bool deletingImage { get; set; }
         }
 
         public class Handler : IRequestHandler<Command>
@@ -63,7 +65,9 @@ namespace API.Handlers.Comments
                 //Edit it
                 comment.description = request.description ?? comment.description;
 
-                //Handling attachments 
+                
+                
+                //Handling attachments
 
                 //Find current attachment
                 var current_attachement = await context.attachments.FindAsync(comment.attachment_id);
@@ -71,8 +75,10 @@ namespace API.Handlers.Comments
                 //Initialize new attachemnt
                 Attachment new_attachment = null;
 
-                //If the request contains an attachment, upload it, and save to new_attachemnt
-                if (request.image != null)
+                //If the request contains an attachment, and the current comment has no attachement...
+                //Then we have a comment, initially without an attachement, and the user wants to add one to it...
+                //So upload the requested attachement, and assign to comment
+                if (request.image != null && current_attachement == null)
                 {
                     var uploadAttachmentResult = photoAccessor.AddPhoto(request.image);
 
@@ -81,17 +87,38 @@ namespace API.Handlers.Comments
                         Id = uploadAttachmentResult.PublicId,
                         url = uploadAttachmentResult.Url
                     };
+
+                    //Set the comment.attachment to new_attachment (this may null)
+                    comment.attachment = new_attachment;
                 }
 
-                //If current_attachment is not null, delete it from the cloud and delete from DB
-                if (current_attachement != null)
+                //If the comment initially has an attachement, and the user has selected to delete the attachement...
+                //Delete the attachement from the comment
+                if (current_attachement != null && request.deletingImage)
                 {
                     photoAccessor.DeletePhoto(current_attachement.Id);
                     context.attachments.Remove(current_attachement);
+
+                    //If the user has also selected to add a new attachement instead of the old one...
+                    //Upload this new attachement, and apply it to the comment
+                    if (request.image != null)
+                    {
+                        var uploadAttachmentResult = photoAccessor.AddPhoto(request.image);
+
+                        new_attachment = new Attachment
+                        {
+                            Id = uploadAttachmentResult.PublicId,
+                            url = uploadAttachmentResult.Url
+                        };
+
+                        //Set the comment.attachment to new_attachment (this may null)
+                        comment.attachment = new_attachment;
+                    }
                 }
 
-                //Set the ticket.attachment to new_attachment (this may null)
-                comment.attachment = new_attachment;
+
+
+
 
                 //Save
                 var success = await context.SaveChangesAsync() > 0;

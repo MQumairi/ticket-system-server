@@ -1,8 +1,16 @@
 # dependencies
+obj
+bin
+*.db
 /obj/Debug
 /bin/Debug
 API/obj/Debug
 API/bin/Debug
+appsettings.json
+**/appsettings.json
+**/appsettings.Development.json
 
 # misc
 .DS_Store
+wwwroot
+**/.vscode

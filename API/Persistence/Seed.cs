@@ -5,13 +5,22 @@ using System.Threading.Tasks;
 using API.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace API.Persistence
 {
     public class Seed
     {
-        public static async Task seedTickets(ApplicationDBContext context, UserManager<User> userManager, RoleManager<Role> roleManager)
+        public IConfiguration config { get; }
+
+        public Seed(IConfiguration config)
         {
+            this.config = config;
+        }
+
+        public async Task seedTickets(ApplicationDBContext context, UserManager<User> userManager, RoleManager<Role> roleManager)
+        {
+
             List<User> usersToAdd = new List<User>();
 
             //Seeding Roles
@@ -20,15 +29,19 @@ namespace API.Persistence
                 var adminRole = new Role
                 {
                     Name = "Admin",
-                    color = "orange"
+                    color = "orange",
+                    can_manage = true,
+                    can_moderate = true
                 };
 
                 await roleManager.CreateAsync(adminRole);
 
-                var devRole = new Role 
+                var devRole = new Role
                 {
                     Name = "Developer",
-                    color = "purple"
+                    color = "purple",
+                    can_manage = true,
+                    can_moderate = false
                 };
 
                 await roleManager.CreateAsync(devRole);
@@ -42,17 +55,18 @@ namespace API.Persistence
                     UserName = "MQumairi",
                     Email = "moh.alqumairi@gmail.com",
                     first_name = "Mohammed",
-                    surname = "Alqumairi"
+                    surname = "Alqumairi",
+                    notifications = 0
                 };
-
-                await userManager.AddToRoleAsync(adminAccount, "Admin");
 
                 usersToAdd.Add(new User
                 {
                     UserName = "BBob",
                     Email = "Bob@email.com",
                     first_name = "Billy",
-                    surname = "Bob"
+                    surname = "Bob",
+                    notifications = 0
+
                 });
 
                 usersToAdd.Add(new User
@@ -60,20 +74,25 @@ namespace API.Persistence
                     UserName = "ToshiToshi",
                     Email = "Toshi@email.com",
                     first_name = "Toshi",
-                    surname = "Toshi"
+                    surname = "Toshi",
+                    notifications = 0
                 });
 
                 usersToAdd.Add(adminAccount);
 
                 foreach (var user in usersToAdd)
                 {
-                    await userManager.CreateAsync(user, "Pa$$w0rd");
+                    string defaultPass = config["defaultPass"];
+                    await userManager.CreateAsync(user, defaultPass);
                 }
 
+                await userManager.AddToRoleAsync(adminAccount, "Admin");
 
-                if(!context.acp_settings.Any()) {
-                    ACPSettings aCPSettings = new ACPSettings {
-                        founder = adminAccount,
+
+                if (!context.acp_settings.Any())
+                {
+                    ACPSettings aCPSettings = new ACPSettings
+                    {
                         founder_id = adminAccount.Id,
                         registration_locked = false
                     };
@@ -91,12 +110,12 @@ namespace API.Persistence
                 List<Product> productsToAdd = new List<Product>()
                 {
                     new Product{
-                        product_name = "MacOs",
+                        product_name = "Product 1",
                         version = "10.15.5"
                     },
 
                     new Product{
-                        product_name = "iOS",
+                        product_name = "Product 2",
                         version = "14.0.0"
                     }
                 };
@@ -112,19 +131,19 @@ namespace API.Persistence
                 {
                     new Status {
                         status_text = "Urgent",
-                        status_color = "red"
+                        status_color = "#d80000"
                     },
                     new Status {
                         status_text = "Low",
-                        status_color = "orange"
+                        status_color = "#e68a00"
                     },
                     new Status {
                         status_text = "Pending",
-                        status_color = "yellow"
+                        status_color = "#f3cb16"
                     },
                     new Status {
                         status_text = "Done",
-                        status_color = "green",
+                        status_color = "#45B510",
                         is_default = true
                     }
                 };
@@ -168,31 +187,33 @@ namespace API.Persistence
 
                 context.tickets.AddRange(ticketsToAdd);
                 context.SaveChanges();
-            }
 
-            //Seeding Comments
-            if (!context.comments.Any())
-            {
-                List<Comment> commentsToAdd = new List<Comment>()
+                //Seeding Comments
+                if (!context.comments.Any())
+                {
+                    List<Comment> commentsToAdd = new List<Comment>()
                 {
                     new Comment {
-                        parent_post_id = 4,
+                        parent_post_id = ticketsToAdd[2].post_id,
                         author_id = usersToAdd[1].Id,
                         date_time = DateTime.Now,
                         description = "Working on it now"
                     },
 
                     new Comment {
-                        parent_post_id = 4,
+                        parent_post_id = ticketsToAdd[2].post_id,
                         author_id = usersToAdd[1].Id,
                         date_time = DateTime.Now,
                         description = "You're having a networking problem"
                     }
                 };
 
-                context.comments.AddRange(commentsToAdd);
-                context.SaveChanges();
+                    context.comments.AddRange(commentsToAdd);
+                    context.SaveChanges();
+                }
             }
+
+
         }
     }
 }

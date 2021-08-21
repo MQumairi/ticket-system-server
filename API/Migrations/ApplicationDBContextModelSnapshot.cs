@@ -201,6 +201,9 @@ namespace API.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("notifications")
+                        .HasColumnType("integer");
+
                     b.Property<string>("surname")
                         .IsRequired()
                         .HasColumnType("text");
@@ -514,7 +517,7 @@ namespace API.Migrations
                     b.HasOne("API.Models.Ticket", "ticket")
                         .WithMany("comments")
                         .HasForeignKey("parent_post_id")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
                 });
 

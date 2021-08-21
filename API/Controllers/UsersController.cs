@@ -46,6 +46,13 @@ namespace API.Controllers
             return await mediator.Send(command);
         }
 
+        //Flush notifications
+        [HttpPut("notification-flush")]
+        public async Task<ActionResult<Unit>> Flush(FlushNotifications.Command command)
+        {
+            return await mediator.Send(command);
+        }
+
 
         //Admin stuff
         [Authorize(Roles = "Admin")]

@@ -30,6 +30,8 @@ namespace API.Handlers.Tickets
             //If attachement
             public IFormFile image { get; set; }
 
+            public bool deletingImage { get; set; }
+
         }
 
         public class Handler : IRequestHandler<Command>
@@ -57,9 +59,10 @@ namespace API.Handlers.Tickets
 
                 Role current_user_role = null;
 
-                if(current_user_role_list.Count > 0) {
-                   var current_user_role_string = current_user_role_list[0];
-                   current_user_role = await roleManager.FindByNameAsync(current_user_role_string);
+                if (current_user_role_list.Count > 0)
+                {
+                    var current_user_role_string = current_user_role_list[0];
+                    current_user_role = await roleManager.FindByNameAsync(current_user_role_string);
                 }
 
                 Ticket ticket = await context.tickets.FindAsync(request.post_id);
@@ -76,7 +79,7 @@ namespace API.Handlers.Tickets
                 if (request.status_id != 0)
                     ticket.status_id = request.status_id;
 
-                //Handling attachments 
+                //Handling attachments
 
                 //Find current attachment
                 var current_attachement = await context.attachments.FindAsync(ticket.attachment_id);
@@ -84,8 +87,10 @@ namespace API.Handlers.Tickets
                 //Initialize new attachemnt
                 Attachment new_attachment = null;
 
-                //If the request contains an attachment, upload it, and save to new_attachemnt
-                if (request.image != null)
+                //If the request contains an attachment, and the current ticket has no attachement...
+                //Then we have a ticket, initially without an attachement, and the user wants to add one to it...
+                //So upload the requested attachement, and assign to ticket
+                if (request.image != null && current_attachement == null)
                 {
                     var uploadAttachmentResult = photoAccessor.AddPhoto(request.image);
 
@@ -94,17 +99,34 @@ namespace API.Handlers.Tickets
                         Id = uploadAttachmentResult.PublicId,
                         url = uploadAttachmentResult.Url
                     };
+
+                    //Set the ticket.attachment to new_attachment (this may null)
+                    ticket.attachment = new_attachment;
                 }
 
-                //If current_attachment is not null, delete it from the cloud and delete from DB
-                if (current_attachement != null)
+                //If the ticket initially has an attachement, and the user has selected to delete the attachement...
+                //Delete the attachement from the ticket
+                if (current_attachement != null && request.deletingImage)
                 {
                     photoAccessor.DeletePhoto(current_attachement.Id);
                     context.attachments.Remove(current_attachement);
-                }
 
-                //Set the ticket.attachment to new_attachment (this may null)
-                ticket.attachment = new_attachment;
+                    //If the user has also selected to add a new attachement instead of the old one...
+                    //Upload this new attachement, and apply it to the ticket
+                    if (request.image != null)
+                    {
+                        var uploadAttachmentResult = photoAccessor.AddPhoto(request.image);
+
+                        new_attachment = new Attachment
+                        {
+                            Id = uploadAttachmentResult.PublicId,
+                            url = uploadAttachmentResult.Url
+                        };
+
+                        //Set the ticket.attachment to new_attachment (this may null)
+                        ticket.attachment = new_attachment;
+                    }
+                }
 
                 var success = await context.SaveChangesAsync() > 0;
                 if (success) return Unit.Value;

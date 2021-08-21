@@ -67,8 +67,26 @@ namespace API.Handlers.Tickets
                 //Set the status and is_archvied
                 ticket.status_id = request.status_id;
 
+                //To prevent double decrement of notifcations
+                bool alreadyDecremented = false;
+
+                //If the ticket has a developer, and you're archivig it... decrement their notifications
+                if (ticket.developer != null && request.is_archived && (request.is_archived != ticket.is_archived) && ticket.developer.notifications > 0)
+                {
+                    ticket.developer.notifications--;
+                    alreadyDecremented = true;
+                }
+
+                if (ticket.developer != null && !request.is_archived && (request.is_archived != ticket.is_archived))
+                {
+                    ticket.developer.notifications++;
+                }
+
+                //If requesting to archive a ticket
                 ticket.is_archived = request.is_archived;
 
+
+                //If requesting a dev assignment to a ticket
                 if (request.developer_id != null)
                 {
                     //Find the user requested to be the assigned dev, and their roles
@@ -89,8 +107,31 @@ namespace API.Handlers.Tickets
                     //If the requested_dev has no role, or has a role, but that role doesn't have managing permissions, throw exception
                     if (requested_dev_role == null || !requested_dev_role.can_manage) throw new RestException(HttpStatusCode.Forbidden, new { user = "This user cannot be assigned the ticket!" });
 
-                    //Else, assign the ticket's dev to equal that dev
+                    //If the ticket already has a developer, decrement their notifcations 
+                    if (ticket.developer != null && ticket.developer.Id != request.developer_id && !alreadyDecremented && ticket.developer.notifications > 0)
+                    {
+                        Console.WriteLine("Notifications before remove from" + ticket.developer.UserName + ": " + ticket.developer.notifications);
+                        ticket.developer.notifications--;
+                        Console.WriteLine("Notifications after remove from" + ticket.developer.UserName + ": " + ticket.developer.notifications);
+
+                    }
+
+                    //Finally, assign the ticket's dev to equal the requested dev
                     ticket.developer = requested_dev;
+
+                    //Then increment the developer's notifications by 1
+                    if (requested_dev.Id != ticket.developer_id) requested_dev.notifications++;
+                }
+
+                //Requesting dev unassignment from ticket
+                if (request.developer_id == null && ticket.developer != null)
+                {
+                    if (ticket.developer.notifications > 0 && !alreadyDecremented)
+                    {
+                        ticket.developer.notifications--;
+                    }
+
+                    ticket.developer = null;
                 }
 
                 var success = await context.SaveChangesAsync() > 0;

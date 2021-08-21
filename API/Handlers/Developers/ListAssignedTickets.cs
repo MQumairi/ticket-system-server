@@ -46,7 +46,7 @@ namespace API.Handlers.Developers
                                             .Include(tickets => tickets.product)
                                             .Include(ticket => ticket.author)
                                                 .ThenInclude(user => user.avatar)
-                                            .Where(ticket => ticket.developer_id == user.Id).ToListAsync();
+                                            .Where(ticket => ticket.developer_id == user.Id && !ticket.is_archived).ToListAsync();
 
                 List<TicketDto> ticketsDto = new List<TicketDto>();
 
