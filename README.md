@@ -11,7 +11,7 @@ The backend API for the Ticket System.
 |---------|-----------------|------------|-----------------------------------------|
 | Server  | C#              | .NET Core  | EF Core, Identity, Mediator, Cloudinary |
 | Client  | Typescript      | React      | Semantic-UI, MobX, Axios                |
-| Hosting | -               | -          | Azure, SQL Server                       |
+| Hosting | -               | -          | Docker, PostGres, Heroku                       |
 
 
 ## Server App
@@ -34,7 +34,4 @@ Semantic UI was the component library of choice. MobX was used for state managem
 The application is also fully mobile responsive!
 
 ## Hosting
-
-We are currently hosted on Azure. The current student plan I am subscribed to in order to host the app on Azure, does not allow for "Always On" to be enabled for the app service. Hence, the first request after a period of inactivity, will take some time to process- the app needs to 'wake up'. Subsequent requests will process as normal.
-
-While development was done using Postgres, I found that SQL server plans on Azure were more cost efficient. And since Entity Framework Core was used to query the database, it only took a few minutes to replace Postgres with SQL sever for the application.
+This web app is hosted on Heroku. Despite the lack of official support for .NET web apps, I was able to host on Heroku by dockerizing the source code, and pushing to the Heroku container registry.
