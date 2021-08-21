@@ -41,8 +41,8 @@ namespace API
         public void ConfigureProductionServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDBContext>(option =>
-                            option.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-                            
+                            option.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
+
             ConfigureServices(services);
         }
 
