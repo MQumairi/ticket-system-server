@@ -15,19 +15,18 @@ namespace API
     {
         public static void Main(string[] args)
         {
+            Console.WriteLine("🔥 Entered main funcion");
             var host = CreateHostBuilder(args).Build();
 
             using (var scope = host.Services.CreateScope())
             {
-
                 var services = scope.ServiceProvider;
-
                 try
                 {
                     var context = services.GetRequiredService<ApplicationDBContext>();
                     var userManager = services.GetRequiredService<UserManager<User>>();
                     var roleManager = services.GetRequiredService<RoleManager<Role>>();
-                    context.Database.Migrate();
+                    //context.Database.Migrate();
                     Seed seed = new Seed(services.GetRequiredService<IConfiguration>());
                     seed.seedTickets(context, userManager, roleManager).Wait();
                 }

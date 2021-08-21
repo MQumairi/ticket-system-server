@@ -21,11 +21,14 @@ namespace API.Persistence
         public async Task seedTickets(ApplicationDBContext context, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
 
+            Console.WriteLine("🔥 Entered seeding");
+
             List<User> usersToAdd = new List<User>();
 
             //Seeding Roles
             if (!roleManager.Roles.Any())
             {
+                Console.WriteLine("🔥 No roles!");
                 var adminRole = new Role
                 {
                     Name = "Admin",
