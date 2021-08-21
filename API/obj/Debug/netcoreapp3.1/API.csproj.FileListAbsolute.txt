@@ -138,7 +138,6 @@
 /Users/mqumairi/CS/ASP .NET + React Course/Projects/TicketSystemProject/TicketSystem/server-app/API/obj/Debug/netcoreapp3.1/API.genruntimeconfig.cache
 /Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/appsettings.Development.json
 /Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/appsettings.json
-/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/Properties/launchSettings.json
 /Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.StaticWebAssets.xml
 /Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.deps.json
 /Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/bin/Debug/netcoreapp3.1/API.runtimeconfig.json
@@ -219,3 +218,4 @@
 /Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.dll
 /Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.pdb
 /Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/API.genruntimeconfig.cache
+/Users/mqumairi/Developer/Ticket System/Ticket System Code/server-app/API/obj/Debug/netcoreapp3.1/scopedcss/bundle/API.styles.css
