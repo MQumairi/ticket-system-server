@@ -2,7 +2,7 @@
 
 The backend API for the Ticket System. 
 
-- Live link: https://mqumairi-tickets.azurewebsites.net/ 
+- Live link: http://mqumairi-ticketsystem.herokuapp.com/
 - Front end repo: https://github.com/MQumairi/ticket-system-client
 
 # Tech Stack
